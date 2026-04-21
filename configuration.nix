@@ -247,6 +247,7 @@
     libreoffice
     bottles
     btop
+    localsend
     fastfetch
     appimage-run
     ventoy-full-qt
