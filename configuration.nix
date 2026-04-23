@@ -160,6 +160,10 @@
   # Nix settings and maintenance
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-36.9.5"
+  ];
+
   # ------------------------------------------------------------
   # udev rules (SayoDevice, etc.)
   # ------------------------------------------------------------
@@ -240,7 +244,6 @@
     localsend
     fastfetch
     appimage-run
-#   ventoy-full-qt
     hyprshot
     brightnessctl
     wlsunset
