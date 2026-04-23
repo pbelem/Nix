@@ -174,23 +174,9 @@
     enable = true;
     autoPrune.enable = true;   # clean up unused containers/images
   };
-  /*
-  # Flatpak configuration
-  services.flatpak = {
-    enable = true;
-    remotes = [{
-      name = "flathub";
-      location = "https://flathub.org/repo/flathub.flatpakrepo";
-    }];
-    # Flatpak list (note: only IDs needed, not "flatpak install ...")
-    packages = [
-      "com.github.tchx84.Flatseal"
-    ];
-    */
     services.flatpak.enable = true;
     # Remove Flatpaks not declared
 #    uninstallUnmanaged = true;
-  };
 
   # ------------------------------------------------------------
   # User
@@ -239,9 +225,8 @@
     git
     docker
     kitty
-    intellij-idea-community
+    jetbrains.idea-oss
     mpv
-    kdenlive
     tailscale
     obs-studio
     heroic
@@ -255,7 +240,7 @@
     localsend
     fastfetch
     appimage-run
-    ventoy-full-qt
+#   ventoy-full-qt
     hyprshot
     brightnessctl
     wlsunset
@@ -267,19 +252,12 @@
 
     # Document & media tools
     zathura
-    zathura-pdf-mupdf
-    zathura-djvu
-    zathura-cb
+    zathuraPkgs.zathura_pdf_mupdf
+    zathuraPkgs.zathura_djvu
+    zathuraPkgs.zathura_cb
     imv
     xarchiver
     p7zip
-
-    # File Manager (Thunar – lightweight)
-    xfce.thunar
-    xfce.thunar-archive-plugin
-    xfce.thunar-volman
-    gvfs
-    tumbler
 
     (yazi.override {
 		_7zz = _7zz-rar;  # Support for RAR extraction
@@ -338,11 +316,11 @@
   };
 
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains.mono
+    nerd-fonts.jetbrains-mono
     fira-code
     fira-code-symbols
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
   ];
 

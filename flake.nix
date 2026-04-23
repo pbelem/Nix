@@ -37,3 +37,4 @@ outputs = { self, nixpkgs, unstable, home-manager, noctalia, ... }@inputs:
         ];
       };
     };
+}    
