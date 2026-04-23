@@ -173,6 +173,7 @@
     enable = true;
     autoPrune.enable = true;   # clean up unused containers/images
   };
+  /*
   # Flatpak configuration
   services.flatpak = {
     enable = true;
@@ -184,6 +185,8 @@
     packages = [
       "com.github.tchx84.Flatseal"
     ];
+    */
+    services.flatpak.enable = true;
     # Remove Flatpaks not declared
     uninstallUnmanaged = true;
   };
@@ -241,6 +244,7 @@
     tailscale
     obs-studio
     heroic
+    mangohud
     lutris
     prismlauncher
     protonplus
@@ -298,9 +302,8 @@
     killall
     file
     unzip
-  ] ++ (with pkgsUnstable; [
-    mesa libdrm libva libvdpau vulkan-loader vulkan-tools
-  ]);
+
+    ];
 
   programs.hyprland = {
     enable = true;
@@ -314,10 +317,10 @@
     dedicatedServer.openFirewall = true; 
   };
 
-  programs.mangohud = {
-    enable = true;
-    setcap = true; # Allows you to monitor processes from other users/systems
-  };
+#  programs.mangohud = {
+#    enable = true;
+#    setcap = true; # Allows you to monitor processes from other users/systems
+#  };
 
   programs.zsh = {
     enable = true;
