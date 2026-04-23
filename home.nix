@@ -1,14 +1,13 @@
-{ config, pkgs, pkgsUnstable, noctalia-qs, ... }:
+{ config, pkgs, pkgsUnstable, noctalia, ... }:
 
 {
   imports = [
-    noctalia-qs.homeModules.default
+    noctalia.homeModules.default
   ];
 
   # Activate Noctalia shell
   programs.noctalia-shell = {
     enable = true;
-    package = pkgsUnstable.noctalia-shell;
     # Optional: choose a theme, plugins, etc.
     # settings = {
     #   theme = "Catppuccin-Macchiato";

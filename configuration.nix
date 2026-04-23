@@ -124,6 +124,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
   services.blueman.enable = true;
 
@@ -142,7 +143,7 @@
   };
   services.gvfs.enable = true;   # support for mounting drives
   services.udisks2.enable = true; # Allows you to easily mount USB drives and external hard drives.
-  programs.mtp.enable = true;    # Essencial to connect Android by USB
+#  programs.mtp.enable = true;    # Essencial to connect Android by USB
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -188,7 +189,7 @@
     */
     services.flatpak.enable = true;
     # Remove Flatpaks not declared
-    uninstallUnmanaged = true;
+#    uninstallUnmanaged = true;
   };
 
   # ------------------------------------------------------------
@@ -210,7 +211,7 @@
   # Default shell for new users:
   users.defaultUserShell = pkgs.zsh;
 
-  services.getty.autoLoginUser = "belem";
+#  services.getty.autoLoginUser = "belem";
 
   # ------------------------------------------------------------
   # Environment variables (Wayland + Electron)
