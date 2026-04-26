@@ -180,6 +180,9 @@ nixos-generate-config --root /mnt
 5 step:
 sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS
 
+6 step:
+nixos-enter --root -c 'passwd belem'
+
 mount /dev/sdX2 /mnt/pendrive
 cp /mnt/pendrive/Nix/configuration.nix /etc/nixos
 cp /mnt/pendrive/Nix/flake.nix /etc/nixos
@@ -187,8 +190,6 @@ cp /mnt/pendrive/Nix/home.nix /etc/nixos
 
 nixos-generate-config -root /mnt
 cd /mnt/etc/nixos
-
-
 
 cd /tmp
 git clone https://github.com/pbelem/nixos-belem.git
@@ -198,8 +199,4 @@ sudo nixos-install --flake /tmp/nixos-belem#nixos-belem
 mount /dev/sdc1 /mnt/Ventoy
 sudo nixos-install --flake /mnt/Ventoy/Nix/#nixos-belem
 
-ls /tmp/nixos-belem
-# Must see: flake.nix, configuration.nix, home.nix, etc.\
-
-flatpaks = flatseal, gnome boxes, intelij
-
+https://github.com/polirritmico/Breeze-Dark-Cursor

@@ -1,9 +1,10 @@
 {
-  description = "NixOS 25.05 + Noctalia (from unstable)";
+  description = "NixOS 25.11 + Noctalia (from unstable)";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -11,7 +12,7 @@
     };
     
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -28,6 +29,7 @@ outputs = { self, nixpkgs, unstable, home-manager, noctalia, ... }@inputs:
         modules = [
           ./configuration.nix
           home-manager.nixosModules.home-manager
+          inputs.nix-flatpak.nixosModules.nix-flatpak
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -37,4 +39,4 @@ outputs = { self, nixpkgs, unstable, home-manager, noctalia, ... }@inputs:
         ];
       };
     };
-}    
+}

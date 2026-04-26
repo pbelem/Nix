@@ -40,16 +40,11 @@
     extra-substituters = [ "https://noctalia.cachix.org" ];
     extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
-
-  # ------------------------------------------------------------
-  # Simple Desktop Display Manager
-  # ------------------------------------------------------------
-  #services.displayManager.sddm = {
-  #enable = true;
-  #theme = "catppuccin-mocha";
-  #wayland.enable = true;
-  #};
-  #environment.systemPackages = [ pkgs.catppuccin-sddm-corners ];
+  
+  # Provide niri-flake access to your configuration.nix
+  nixpkgs.overlays = [
+    inputs.nix-flatpak.overlays.default
+  ];
 
   # ------------------------------------------------------------
   # Boot / Kernel / Hardware / Swap
@@ -60,20 +55,30 @@
     systemd-boot.memtest86.enable = true;
     #time.hardwareClockInLocalTime = true; # Fixes the problem of incorrect time between Windows and NixOS
   };
-  boot.kernelPackages = pkgs.linuxPackages_zen;   # Zen Kernel for better desktop responsiveness
-  boot.kernelParams = [ "amdgpu.dc=1" ];  # improves compatibility with modern monitors
 
- hardware.graphics = {
+  boot.kernelPackages = pkgs.linuxPackages_zen;   # Zen Kernel for better desktop responsiveness
+#  boot.kernelParams = [ "amdgpu.dc=1" ];  # improves compatibility with modern monitors
+
+  hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    package = pkgsUnstable.mesa;
-    package32 = pkgsUnstable.pkgsi686Linux.mesa;
+#    package = pkgsUnstable.mesa;
+#    package32 = pkgsUnstable.pkgsi686Linux.mesa;
   };
 
   hardware.enableAllFirmware = true; 
   hardware.enableRedistributableFirmware = true; # Improves compatibility with AMD CPUs and modern GPUs
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
+#  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = true;
+    hardware.nvidia.powerManagement.enable = true; # Hyprland requires for Nvidia
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -137,13 +142,13 @@
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk   # needed for some apps
+      xdg-desktop-portal-gtk
     ];
     config.hyprland.default = [ "hyprland" "gtk" ];
   };
+
   services.gvfs.enable = true;   # support for mounting drives
   services.udisks2.enable = true; # Allows you to easily mount USB drives and external hard drives.
-#  programs.mtp.enable = true;    # Essencial to connect Android by USB
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -172,15 +177,28 @@
   '';
 
   # ------------------------------------------------------------
-  # Docker and Flatpak
+  # Virtualization and Flatpak
   # ------------------------------------------------------------
   virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;   # clean up unused containers/images
   };
-    services.flatpak.enable = true;
+#    services.flatpak.enable = true;
+#    removeUnmanagedPackages = true; # Equals uninstallUnmanaged
+  services.flatpak = {
+    enable = true;
+    remotes = [{
+      name = "flathub";
+      location = "https://flathub.org/repo/flathub.flatpakrepo";
+    }];
+    packages = [
+      "com.github.tchx84.Flatseal"
+      "com.jetbrains.IntelliJ-IDEA-Community"
+      "flathub org.gnome.Boxes"
+    ];
     # Remove Flatpaks not declared
-#    uninstallUnmanaged = true;
+    uninstallUnmanaged = true;
+  };
 
   # ------------------------------------------------------------
   # User
@@ -201,8 +219,6 @@
   # Default shell for new users:
   users.defaultUserShell = pkgs.zsh;
 
-#  services.getty.autoLoginUser = "belem";
-
   # ------------------------------------------------------------
   # Environment variables (Wayland + Electron)
   # ------------------------------------------------------------
@@ -211,81 +227,41 @@
     MOZ_ENABLE_WAYLAND = "1";          # Firefox Wayland
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
-    _JAVA_AWT_WM_NONREPARENTING = "1"; # Java on Hyprland
-    XDG_CURRENT_DESKTOP = "Hyprland";
+    _JAVA_AWT_WM_NONREPARENTING = "1"; # Java on Wayland
+    XDG_CURRENT_DESKTOP = "niri";
     MANGOHUD_CONFIG = "cpu_temp,gpu_temp,ram,vram,fps,frame_timing=1,position=top-right";
   };
 
   # ------------------------------------------------------------
-  # System packages
+  # Core System Packages (Essential for system maintenance)
   # ------------------------------------------------------------
   environment.systemPackages = with pkgs; [
-    brave
-    discord
-    zapzap
-    telegram-desktop
-    vscodium
-    mise
-    git
-    docker
-    kitty
-    jetbrains.idea-oss
-    mpv
-    tailscale
-    obs-studio
-    heroic
-    mangohud
-    lutris
-    prismlauncher
-    protonplus
-    libreoffice
-    bottles
-    btop
-    localsend
-    fastfetch
-    appimage-run
-    hyprshot
-    brightnessctl
-    wlsunset
-    wl-clipboard
-    ddcutil
-    power-profiles-daemon
-
-    cmatrix
-
-    # Document & media tools
-    zathura
-    zathuraPkgs.zathura_pdf_mupdf
-    zathuraPkgs.zathura_djvu
-    zathuraPkgs.zathura_cb
-    imv
-    xarchiver
-    p7zip
-
-    (yazi.override {
-		_7zz = _7zz-rar;  # Support for RAR extraction
-	})
-
-    # Yazi dependencies (optional enhancements)
-    ffmpeg
-    jq
-    poppler_utils
-    fd
-    ripgrep
-    fzf
-    zoxide
-    imagemagick
-
-    # Extras
-    nixd
-    nil
+    # Base tools and extraction
     wget
     curl
     killall
     file
     unzip
-
-    ];
+    p7zip
+    xarchiver
+    btop
+    fastfetch
+    cmatrix
+    cava
+    
+    # System and network management
+    docker
+    tailscale
+    appimage-run
+    
+    # Hardware and Wayland management
+    brightnessctl
+    power-profiles-daemon
+    ddcutil
+    wl-clipboard
+    wlsunset
+    hyprshot
+  ];
 
   programs.hyprland = {
     enable = true;
@@ -299,11 +275,6 @@
     dedicatedServer.openFirewall = true; 
   };
 
-#  programs.mangohud = {
-#    enable = true;
-#    setcap = true; # Allows you to monitor processes from other users/systems
-#  };
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -311,10 +282,15 @@
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "docker" "dotnet" "java" ];
+      plugins = [ "git" "docker" "dotnet" ];
     };
     shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake .#Desktop-NixOS";
+    rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";
+    list = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
+    delete = "sudo nix-env \
+    --profile /nix/var/nix/profiles/system \
+    --delete-generations"; # Space X YY ZZ
+    switch = "home-manager switch";
     };
   };
 
@@ -324,12 +300,12 @@
     fira-code-symbols
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   programs.appimage = {
     enable = true;
-    #binfmt = true;
+    binfmt = true;
   };
 
   programs.gamemode.enable = true;
@@ -357,5 +333,5 @@
   # ------------------------------------------------------------
   # Final
   # ------------------------------------------------------------
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
