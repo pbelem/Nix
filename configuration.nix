@@ -40,11 +40,7 @@
     extra-substituters = [ "https://noctalia.cachix.org" ];
     extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
-  
-  # Provide niri-flake access to your configuration.nix
-  nixpkgs.overlays = [
-    inputs.nix-flatpak.overlays.default
-  ];
+
 
   # ------------------------------------------------------------
   # Boot / Kernel / Hardware / Swap
@@ -76,7 +72,7 @@
     modesetting.enable = true;
     open = false;
     nvidiaSettings = true;
-    hardware.nvidia.powerManagement.enable = true; # Hyprland requires for Nvidia
+#    hardware.nvidia.powerManagement.enable = true; # Hyprland requires for Nvidia
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
@@ -228,8 +224,10 @@
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1"; # Java on Wayland
-    XDG_CURRENT_DESKTOP = "niri";
-    MANGOHUD_CONFIG = "cpu_temp,gpu_temp,ram,vram,fps,frame_timing=1,position=top-right";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    GTK_IM_MODULE = "cedilla";
+    QT_IM_MODULE = "cedilla";
+    MANGOHUD_CONFIG = "cpu_temp,gpu_temp,ram,vram,fps,frame_timing=1,position=top-left";
   };
 
   # ------------------------------------------------------------
