@@ -69,8 +69,8 @@
   # Git configuration (name and email)
   programs.git = {
     enable = true;
-    userName = "pbelem";
-    userEmail = "belem@tuta.io";
+    programs.git.settings.user.name = "pbelem";
+    programs.git.settings.user.email = "belem@tuta.io";
     extraConfig = {
       init.defaultBranch = "main";
     };

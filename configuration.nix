@@ -40,8 +40,7 @@
     extra-substituters = [ "https://noctalia.cachix.org" ];
     extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
-
-
+  
   # ------------------------------------------------------------
   # Boot / Kernel / Hardware / Swap
   # ------------------------------------------------------------
@@ -67,14 +66,15 @@
 
 #  services.xserver.videoDrivers = [ "amdgpu" ];
 
+/*
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;
     nvidiaSettings = true;
-#    hardware.nvidia.powerManagement.enable = true; # Hyprland requires for Nvidia
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+*/
 
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -278,7 +278,7 @@
     enableCompletion = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    oh-my-zsh = {
+    ohMyZsh = {
       enable = true;
       plugins = [ "git" "docker" "dotnet" ];
     };

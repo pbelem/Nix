@@ -178,6 +178,7 @@ mount -t efivarfs efivarfs /sys/firmware/efi/efivarfs
 nixos-generate-config --root /mnt
 
 5 step:
+nixos-install --root /mnt --flake /mnt/etc/nixos#Desktop-NixOS
 sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS
 
 6 step:
