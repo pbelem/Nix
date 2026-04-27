@@ -69,8 +69,6 @@
   # Git configuration (name and email)
   programs.git = {
     enable = true;
-#    settings.user.name = "pbelem";
-#    settings.user.email = "belem@tuta.io";
     settings = {
       init.defaultBranch = "main";
       user.name = "pbelem";
@@ -94,5 +92,16 @@
         exec uwsm start hyprland-uwsm.desktop
       fi
     '';
+  };
+  systemd.user.services.noctalia-shell = {
+    description = "Noctalia Shell Autostart";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.coreutils}/bin/env noctalia-shell";
+      Restart = "on-failure";
+      RestartSec = "2";
+    };
   };
 }
