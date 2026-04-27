@@ -17,26 +17,35 @@
     };
   };
 
-outputs = { self, nixpkgs, unstable, home-manager, noctalia, ... }@inputs:
+  outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       pkgsUnstable = unstable.legacyPackages.${system};
     in {
+      # NixOS configuration
       nixosConfigurations.Desktop-NixOS = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit pkgsUnstable noctalia inputs; }; 
+        specialArgs = { inherit pkgsUnstable noctalia inputs; };
         modules = [
           ./configuration.nix
-          home-manager.nixosModules.home-manager
-          inputs.nix-flatpak.nixosModules.nix-flatpak
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.belem = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit pkgsUnstable noctalia inputs; };
-          }
+          nix-flatpak.nixosModules.nix-flatpak
         ];
+      };
+
+      # Standalone configuration of home-manager for the user belem
+      homeConfigurations.belem = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./home.nix
+          # Pass the same special variables to home.nix.
+          ({ config, ... }: {
+            _module.args = {
+              inherit pkgsUnstable noctalia inputs;
+            };
+          })
+        ];
+        extraSpecialArgs = { inherit pkgsUnstable noctalia inputs; };
       };
     };
 }

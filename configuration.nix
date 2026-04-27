@@ -283,12 +283,12 @@
       plugins = [ "git" "docker" "dotnet" ];
     };
     shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";
+    nixos-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";
     list = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
     delete = "sudo nix-env \
     --profile /nix/var/nix/profiles/system \
-    --delete-generations"; # Space X YY ZZ
-    switch = "home-manager switch";
+    --delete-generations"; # Space + first generation number + space + second one...
+    home-manager = "home-manager switch --flake /etc/nixos#belem";
     };
   };
 
