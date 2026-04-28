@@ -23,6 +23,7 @@
     discord
     telegram-desktop
     zapzap
+    anydesk
 
     # Terminal, File Management & CLI Tools
     kitty

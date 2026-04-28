@@ -1,8 +1,8 @@
-sudo -i
-
-lsblk
+INSTALLATION GUIDE
 
 1 step:
+sudo -i
+lsblk
 cfdisk /dev/sda
 
 2 step:
@@ -14,38 +14,51 @@ mount /dev/sda2 /mnt
 mount --mkdir /dev/sda1 /mnt/boot
 
 4 step:
-nixos-generate-config --root /mnt
+# use one of these to change the system time
+sudo timedatectl set-ntp true
+timedatectl set-timezone America/Bahia
+date -s "2026-04-28 09:50:00"
 
 5 step:
-cd /tmp
-git clone https://github.com/pbelem/nixos-belem.git
-sudo nixos-install --flake /tmp/nixos-belem#nixos-belem
+nixos-generate-config --root /mnt
 
 6 step:
-nixos-install --root /mnt --flake /mnt/etc/nixos#Desktop-NixOS
+cd /tmp
+git clone https://github.com/pbelem/nixos-belem.git
+cd /Nix
+cp ./* /mnt/etc/nixos
+rm /mnt/etc/nixos/installation.txt
 
 7 step:
-nixos-enter --root /mnt -c 'passwd belem'
+cd /mnt/etc/nixos
+git init
+git branch -m main
+git add .
+git commit -m "system"
+
+7 step:
+nixos-install --root /mnt --flake /mnt/etc/nixos#Desktop-NixOS
 
 8 step:
+nixos-enter --root /mnt -c 'passwd belem'
+# or alias ne
+
+9 step:
 reboot
 
-# must confirm device name with: lsblk
-mount /dev/sdc1 /mnt/Ventoy
-sudo nixos-install --flake /mnt/Ventoy/Nix/#nixos-belem
+10 step:
+(q) Quit and do nothing
+sudo chown -R belem:users /etc/nixos
+nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem
+# or alias = nrhm
 
+11 step:
+reboot
+super + enter
+noctalia-shell & disown
 
-alias = nrs
-sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS
+SYSTEM INSTALLED
 
-alias = nrhm
-nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem -b backup
-
-alias = hms
-home-manager switch --flake /etc/nixos#belem
-
-alias = hmb
-home-manager switch -b backup
 
 
 https://github.com/polirritmico/Breeze-Dark-Cursor
