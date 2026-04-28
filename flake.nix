@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    hyprland.url = "github:hyprwm/Hyprland";
     
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -17,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, ... }@inputs:
+outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, hyprland, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -26,7 +27,9 @@
       # NixOS configuration
       nixosConfigurations.Desktop-NixOS = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit pkgsUnstable noctalia inputs; };
+        
+        specialArgs = { inherit inputs pkgsUnstable noctalia; };
+        
         modules = [
           ./configuration.nix
           nix-flatpak.nixosModules.nix-flatpak
@@ -36,16 +39,12 @@
       # Standalone configuration of home-manager for the user belem
       homeConfigurations.belem = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        
+        extraSpecialArgs = { inherit inputs pkgsUnstable noctalia; };
+        
         modules = [
           ./home.nix
-          # Pass the same special variables to home.nix.
-          ({ config, ... }: {
-            _module.args = {
-              inherit pkgsUnstable noctalia inputs;
-            };
-          })
         ];
-        extraSpecialArgs = { inherit pkgsUnstable noctalia inputs; };
       };
     };
 }

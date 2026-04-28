@@ -190,7 +190,7 @@
     packages = [
       "com.github.tchx84.Flatseal"
       "com.jetbrains.IntelliJ-IDEA-Community"
-      "flathub org.gnome.Boxes"
+      "org.gnome.Boxes"
     ];
     # Remove Flatpaks not declared
     uninstallUnmanaged = true;

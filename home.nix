@@ -1,4 +1,4 @@
-{ config, pkgs, pkgsUnstable, noctalia, ... }:
+{ config, pkgs, pkgsUnstable, noctalia, inputs, ... }:
 
 {
   imports = [
@@ -81,6 +81,12 @@
   home.homeDirectory = "/home/belem";
   home.stateVersion = "25.11";
 
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+
   # Zsh with automatic Hyprland login via uwsm
   programs.zsh = {
     enable = true;
@@ -94,11 +100,15 @@
     '';
   };
   systemd.user.services.noctalia-shell = {
-    description = "Noctalia Shell Autostart";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
+    Unit = {
+      Description = "Noctalia Shell Autostart";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
       ExecStart = "${pkgs.coreutils}/bin/env noctalia-shell";
       Restart = "on-failure";
       RestartSec = "2";
