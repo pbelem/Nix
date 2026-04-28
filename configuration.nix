@@ -52,19 +52,19 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;   # Zen Kernel for better desktop responsiveness
-#  boot.kernelParams = [ "amdgpu.dc=1" ];  # improves compatibility with modern monitors
+  boot.kernelParams = [ "amdgpu.dc=1" ];  # improves compatibility with modern monitors
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-#    package = pkgsUnstable.mesa;
-#    package32 = pkgsUnstable.pkgsi686Linux.mesa;
+    package = pkgsUnstable.mesa;
+    package32 = pkgsUnstable.pkgsi686Linux.mesa;
   };
 
   hardware.enableAllFirmware = true; 
   hardware.enableRedistributableFirmware = true; # Improves compatibility with AMD CPUs and modern GPUs
 
-#  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
 /*
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -283,12 +283,14 @@
       plugins = [ "git" "docker" "dotnet" ];
     };
     shellAliases = {
-    nixos-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";
+    nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";
     list = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
     delete = "sudo nix-env \
     --profile /nix/var/nix/profiles/system \
     --delete-generations"; # Space + first generation number + space + second one...
-    home-manager = "home-manager switch --flake /etc/nixos#belem";
+    nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem";
+    hms = "home-manager switch --flake /etc/nixos#belem";
+    # to create a .backup file use "-b backup" in the end
     };
   };
 

@@ -21,8 +21,14 @@
 outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, hyprland, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      pkgsUnstable = unstable.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      pkgsUnstable = import unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in {
       # NixOS configuration
       nixosConfigurations.Desktop-NixOS = nixpkgs.lib.nixosSystem {

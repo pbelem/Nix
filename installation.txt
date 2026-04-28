@@ -23,7 +23,6 @@ sudo nixos-install --flake /tmp/nixos-belem#nixos-belem
 
 6 step:
 nixos-install --root /mnt --flake /mnt/etc/nixos#Desktop-NixOS
-sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS
 
 7 step:
 nixos-enter --root /mnt -c 'passwd belem'
@@ -34,5 +33,19 @@ reboot
 # must confirm device name with: lsblk
 mount /dev/sdc1 /mnt/Ventoy
 sudo nixos-install --flake /mnt/Ventoy/Nix/#nixos-belem
+
+
+alias = nrs
+sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS
+
+alias = nrhm
+nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem -b backup
+
+alias = hms
+home-manager switch --flake /etc/nixos#belem
+
+alias = hmb
+home-manager switch -b backup
+
 
 https://github.com/polirritmico/Breeze-Dark-Cursor
