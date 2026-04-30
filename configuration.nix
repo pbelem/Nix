@@ -283,13 +283,12 @@
       plugins = [ "git" "docker" "dotnet" ];
     };
     shellAliases = {
-    nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";
+    nrs = "nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";
     list = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
     delete = "sudo nix-env \
     --profile /nix/var/nix/profiles/system \
     --delete-generations"; # Space + first generation number + space + second one...
     nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem";
-    hms = "home-manager switch --flake /etc/nixos#belem";
     # to create a .backup file use "-b backup" in the end
     };
   };
