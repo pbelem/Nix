@@ -41,7 +41,6 @@ nixos-install --root /mnt --flake /mnt/etc/nixos#Desktop-NixOS
 
 8 step:
 nixos-enter --root /mnt -c 'passwd belem'
-# or alias ne
 
 9 step:
 reboot

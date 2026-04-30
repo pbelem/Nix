@@ -291,7 +291,6 @@
     nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem";
     hms = "home-manager switch --flake /etc/nixos#belem";
     # to create a .backup file use "-b backup" in the end
-    ne = "nixos-enter --root /mnt -c 'passwd belem'";
     };
   };
 
