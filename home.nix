@@ -32,6 +32,8 @@
     jq
     fd
     ripgrep
+    neovim
+    localsend
     ncdu # Disk usage analyzer with an ncurses interface
     (yazi.override {
       _7zz = _7zz-rar; # Support for RAR extraction
@@ -58,7 +60,9 @@
 
     # Media, Documents & Streaming
     obs-studio
+    gimp
     mpv
+    vlc
     imv
     libreoffice
     localsend

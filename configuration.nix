@@ -191,6 +191,7 @@
       "com.github.tchx84.Flatseal"
       "com.jetbrains.IntelliJ-IDEA-Community"
       "org.gnome.Boxes"
+      "org.kde.kdenlive"
     ];
     # Remove Flatpaks not declared
     uninstallUnmanaged = true;
