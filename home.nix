@@ -94,6 +94,16 @@
     extraConfig = builtins.readFile ./hyprland.conf;
   };
 
+  gtk.enable = true;
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    name = "capitaine-cursors";
+    package = pkgs.capitaine-cursors;
+    size = 24;
+  };
+
   # Zsh with automatic Hyprland login via uwsm
   programs.zsh = {
     enable = true;
