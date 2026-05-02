@@ -208,7 +208,7 @@ programs.kitty = {
       # Variables handled directly by Nix to prevent Hyprland scope issues
       mod = "SUPER";
       # Using uwsm app -- ensures Noctalia receives the command in the correct Wayland session
-      ipc = "uwsm app -- qs -c noctalia-shell ipc call";
+      ipc = "uwsm app -- noctalia-shell ipc call";
     in {
       monitor = [
         ", 1920x1080@320, auto, 1"
@@ -402,20 +402,5 @@ programs.kitty = {
         exec uwsm start hyprland-uwsm.desktop
       fi
     '';
-  };
-  systemd.user.services.noctalia-shell = {
-    Unit = {
-      Description = "Noctalia Shell Autostart";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.coreutils}/bin/env noctalia-shell";
-      Restart = "on-failure";
-      RestartSec = "2";
-    };
   };
 }
