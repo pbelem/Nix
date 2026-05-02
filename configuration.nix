@@ -286,7 +286,7 @@
     };
     shellAliases = {
 #NixOS aliases 
-      nrs = "nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS"; # same as nrhm
+      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS"; # same as nrhm
       nel = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       ned = "sudo nix-env \
       --profile /nix/var/nix/profiles/system \
@@ -296,6 +296,7 @@
       # to create a .backup file use "-b backup"
       hml = "nix run home-manager generations";
       hmd = "nix run home-manager remove-generations"; # same as ned
+      hma = "echo '-home-manager-generation/activate'"; # cp this with /nix/store/xyz123... in front, no space
     };
   };
 

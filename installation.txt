@@ -54,10 +54,9 @@ nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem
 11 step:
 reboot
 super + enter
-noctalia-shell & disown
+uwsm app -- noctalia-shell & disown
 
 SYSTEM INSTALLED
-
 
 Wallpapers repo:
 https://github.com/krishna4a6av/Wallpapers

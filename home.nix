@@ -322,9 +322,6 @@ programs.kitty = {
         "${mod}, Page_Up, workspace, -1"
         "${mod} ALT, Page_Down, movetoworkspace, +1"
         "${mod} ALT, Page_Up, movetoworkspace, -1"
-        # Scroll through workspaces with mainMod + scroll
-        "${mod}, mouse_down, workspace, e+1"
-        "${mod} mouse_up, workspace, e-1"
 
         # Move the active window to a specific workspace (1-10)
         # Great for removing windows from the Special Workspace
