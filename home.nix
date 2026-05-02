@@ -61,7 +61,7 @@ programs.kitty = {
     enable = true;
     
     font = {
-      name = "Monocraft Nerd Font";
+      name = "JetBrainsMono Nerd Font";
       size = 13;
     };
 
@@ -203,11 +203,13 @@ programs.kitty = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    
-    settings = {
-      "$mainMod" = "SUPER";
-      "$ipc" = "qs -c noctalia-shell ipc call";
 
+    settings = let
+      # Variables handled directly by Nix to prevent Hyprland scope issues
+      mod = "SUPER";
+      # Using uwsm app -- ensures Noctalia receives the command in the correct Wayland session
+      ipc = "uwsm app -- qs -c noctalia-shell ipc call";
+    in {
       monitor = [
         ", 1920x1080@320, auto, 1"
       ];
@@ -290,65 +292,86 @@ programs.kitty = {
 
       bind = [
         # --- Applications ---
-        "$mainMod, RETURN, exec, kitty"
-        "$mainMod, DELETE, killactive"
-        "$mainMod, E, exec, kitty -e yazi"
-        "$mainMod, ESC, exec, kitty -e btop"
-        "$mainMod, B, exec, brave"
+        "${mod}, RETURN, exec, kitty"
+        "${mod}, DELETE, killactive"
+        "${mod}, E, exec, kitty -e yazi"
+        "${mod}, ESC, exec, kitty -e btop"
+        "${mod}, B, exec, brave"
 
         # --- Windows & Workspaces ---
-        "$mainMod, T, togglefloating"
-        "$mainMod, Home, fullscreen, 0"
+        "${mod}, T, togglefloating"
+        "${mod}, Home, fullscreen, 0"
         
-        # Minimizing using a special workspace
-        "$mainMod, End, movetoworkspacesilent, special:minimized" # Sends the window and focuses on the background
-        "$mainMod SHIFT, End, togglespecialworkspace, minimized"  # Brings the "minimized" area back to the screen
+        # Minimize to special workspace
+        "${mod}, End, movetoworkspacesilent, special:minimized"
+        "${mod} SHIFT, End, togglespecialworkspace, minimized"
+        "${mod} SHIFT, Home, movetoworkspace, +0"
 
         # Move focus
-        "$mainMod, left, movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
+        "${mod}, left, movefocus, l"
+        "${mod}, right, movefocus, r"
+        "${mod}, up, movefocus, u"
+        "${mod}, down, movefocus, d"
 
-        # Workspace Navigation (+1 and -1)
-        "$mainMod, Page_Up, workspace, +1"
-        "$mainMod, Page_Down, workspace, -1"
+        # Workspace Navigation
+        "${mod}, Page_Up, workspace, +1"
+        "${mod}, Page_Down, workspace, -1"
+        "${mod} ALT, Page_Up, movetoworkspace, +1"
+        "${mod} ALT, Page_Down, movetoworkspace, -1"
 
-        # Absolute Workspaces (1-0)
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
+        # Move the active window to a specific workspace (1-10)
+        # Great for removing windows from the Special Workspace
+        "${mod} SHIFT, 1, movetoworkspace, 1"
+        "${mod} SHIFT, 2, movetoworkspace, 2"
+        "${mod} SHIFT, 3, movetoworkspace, 3"
+        "${mod} SHIFT, 4, movetoworkspace, 4"
+        "${mod} SHIFT, 5, movetoworkspace, 5"
+        "${mod} SHIFT, 6, movetoworkspace, 6"
+        "${mod} SHIFT, 7, movetoworkspace, 7"
+        "${mod} SHIFT, 8, movetoworkspace, 8"
+        "${mod} SHIFT, 9, movetoworkspace, 9"
+        "${mod} SHIFT, 0, movetoworkspace, 10"
+
+        # Absolute Workspaces
+        "${mod}, 1, workspace, 1"
+        "${mod}, 2, workspace, 2"
+        "${mod}, 3, workspace, 3"
+        "${mod}, 4, workspace, 4"
+        "${mod}, 5, workspace, 5"
+        "${mod}, 6, workspace, 6"
+        "${mod}, 7, workspace, 7"
+        "${mod}, 8, workspace, 8"
+        "${mod}, 9, workspace, 9"
+        "${mod}, 0, workspace, 10"
 
         # --- Noctalia Shell (IPC Calls) ---
-        "$mainMod, SPACE, exec, $ipc launcher toggle"
-        "$mainMod, I, exec, $ipc settings toggle"
-        "$mainMod, period, exec, $ipc launcher emoji" # The '.' key is called 'period'
-        
-        "$mainMod, F12, exec, $ipc brightness increase"
-        "$mainMod, F11, exec, $ipc brightness decrease"
-        "$mainMod, F10, exec, $ipc volume increase"
-        "$mainMod, F9, exec, $ipc volume decrease"
-        "$mainMod, INSERT, exec, $ipc volume muteOutput"
-
-        # Noctalia Plugins
-        "$mainMod, L, exec, $ipc lockScreen lock"
-        "$mainMod, W, exec, $ipc wallpaper random" 
+        "${mod}, SPACE, exec, ${ipc} launcher toggle"
+        "${mod}, I, exec, ${ipc} settings toggle"
+        "${mod}, period, exec, ${ipc} launcher emoji"
+        "${mod}, L, exec, ${ipc} lockScreen lock"
+        "${mod}, W, exec, ${ipc} wallpaper random"
 
         # --- Others ---
         ", Print, exec, hyprshot -m region --clipboard-only"
       ];
 
+      # Continuous Binds (for holding down brightness/volume keys)
+      bindel = [
+        "${mod}, F12, exec, ${ipc} brightness increase"
+        "${mod}, F11, exec, ${ipc} brightness decrease"
+        "${mod}, F10, exec, ${ipc} volume increase"
+        "${mod}, F9, exec, ${ipc} volume decrease"
+      ];
+
+      # Lock Binds (work even when the PC is locked)
+      bindl = [
+        "${mod}, INSERT, exec, ${ipc} volume muteOutput"
+      ];
+
       # Mouse Binds
       bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
+        "${mod}, mouse:272, movewindow"
+        "${mod}, mouse:273, resizewindow"
       ];
     };
   };
