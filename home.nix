@@ -14,6 +14,118 @@
     # };
   };
 
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+
+      plugins = with pkgs.vimPlugins; [
+      lazy-nvim
+    ];
+
+      extraLuaConfig = ''
+      -- Bootstrap lazy.nvim
+      require("lazy").setup({
+        spec = {
+          -- add LazyVim and import its plugins
+          { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+          -- import any extras modules here
+          -- { import = "lazyvim.plugins.extras.lang.typescript" },
+          -- { import = "lazyvim.plugins.extras.lang.json" },
+          -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+          -- import/override with your plugins
+          -- { import = "plugins" },
+        },
+        defaults = {
+          lazy = false,
+          version = false, -- always use the latest git commit
+        },
+        install = { colorscheme = { "tokyonight", "habamax" } },
+        checker = { enabled = true }, -- automatically check for plugin updates
+      })
+    '';
+
+  # 3. Essential dependencies for LazyVim to compile/download things
+  extraPackages = with pkgs; [
+    git
+    gcc
+    gnumake
+    unzip
+    wget
+    ripgrep
+    fd
+  ];
+};
+
+programs.kitty = {
+    enable = true;
+    
+    font = {
+      name = "Monocraft Nerd Font";
+      size = 13;
+    };
+
+    settings = {
+      # Behavior and window
+      bold_font = "auto";
+      italic_font = "auto";
+      bold_italic_font = "auto";
+      mouse_hide_wait = "2.0";
+      cursor_shape = "block";
+      url_style = "dotted";
+      adjust_line_height = "120%";
+      confirm_os_window_close = "0";
+      background_opacity = "0.95";
+
+      # Theme: Catppuccin Mocha
+      foreground = "#CDD6F4";
+      background = "#1E1E2E";
+      selection_foreground = "#1E1E2E";
+      selection_background = "#F5E0DC";
+      cursor = "#F5E0DC";
+      cursor_text_color = "#1E1E2E";
+      url_color = "#F5E0DC";
+
+      # Bordas e Abas
+      active_border_color = "#cdd6f4";
+      inactive_border_color = "#6C7086";
+      bell_border_color = "#F9E2AF";
+      wayland_titlebar_color = "system";
+      macos_titlebar_color = "system";
+      active_tab_foreground = "#11111B";
+      active_tab_background = "#CBA6F7";
+      inactive_tab_foreground = "#CDD6F4";
+      inactive_tab_background = "#181825";
+      tab_bar_background = "#11111B";
+
+      # Marks
+      mark1_foreground = "#1E1E2E";
+      mark1_background = "#B4BEFE";
+      mark2_foreground = "#1E1E2E";
+      mark2_background = "#CBA6F7";
+      mark3_foreground = "#1E1E2E";
+      mark3_background = "#74C7EC";
+
+      # 16 terminal color
+      color0 = "#45475A";
+      color8 = "#585B70";
+      color1 = "#F38BA8";
+      color9 = "#F38BA8";
+      color2 = "#A6E3A1";
+      color10 = "#A6E3A1";
+      color3 = "#F9E2AF";
+      color11 = "#F9E2AF";
+      color4 = "#89B4FA";
+      color12 = "#89B4FA";
+      color5 = "#F5C2E7";
+      color13 = "#F5C2E7";
+      color6 = "#94E2D5";
+      color14 = "#94E2D5";
+      color7 = "#BAC2DE";
+      color15 = "#A6ADC8";
+    };
+  };
+
   # ------------------------------------------------------------
   # User Specific Packages (Productivity & Media)
   # ------------------------------------------------------------
@@ -26,13 +138,11 @@
     anydesk
 
     # Terminal, File Management & CLI Tools
-    kitty
     fzf
     zoxide
     jq
     fd
     ripgrep
-    neovim
     localsend
     ncdu # Disk usage analyzer with an ncurses interface
     (yazi.override {
@@ -101,7 +211,7 @@
     x11.enable = true;
     name = "capitaine-cursors";
     package = pkgs.capitaine-cursors;
-    size = 24;
+    size = 32;
   };
 
   # Zsh with automatic Hyprland login via uwsm
@@ -109,6 +219,7 @@
     enable = true;
     shellAliases = {
       btw = "echo 'i use nixos, btw'";
+      sudo = "please";
     };
     loginExtra = ''
       if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
