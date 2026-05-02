@@ -214,6 +214,10 @@ programs.kitty = {
         ", 1920x1080@320, auto, 1"
       ];
 
+      exec-once = [
+        "uwsm app -- noctalia-shell"
+      ];
+
       env = [
         "XCURSOR_SIZE,32"
         "XDG_CURRENT_DESKTOP,Hyprland"
