@@ -45,6 +45,7 @@
   # Boot / Kernel / Hardware / Swap
   # ------------------------------------------------------------
   boot.loader = {
+    timeout = 5;
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
     systemd-boot.memtest86.enable = true;

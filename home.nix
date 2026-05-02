@@ -318,10 +318,13 @@ programs.kitty = {
         "${mod}, down, movefocus, d"
 
         # Workspace Navigation
-        "${mod}, Page_Up, workspace, +1"
-        "${mod}, Page_Down, workspace, -1"
-        "${mod} ALT, Page_Up, movetoworkspace, +1"
-        "${mod} ALT, Page_Down, movetoworkspace, -1"
+        "${mod}, Page_Down, workspace, +1"
+        "${mod}, Page_Up, workspace, -1"
+        "${mod} ALT, Page_Down, movetoworkspace, +1"
+        "${mod} ALT, Page_Up, movetoworkspace, -1"
+        # Scroll through workspaces with mainMod + scroll
+        "${mod}, mouse_down, workspace, e+1"
+        "${mod} mouse_up, workspace, e-1"
 
         # Move the active window to a specific workspace (1-10)
         # Great for removing windows from the Special Workspace
@@ -352,8 +355,9 @@ programs.kitty = {
         "${mod}, SPACE, exec, ${ipc} launcher toggle"
         "${mod}, I, exec, ${ipc} settings toggle"
         "${mod}, period, exec, ${ipc} launcher emoji"
-        "${mod}, L, exec, ${ipc} lockScreen lock"
+        "${mod}, L, exec, ${ipc} sessionMenu toggle"
         "${mod}, W, exec, ${ipc} wallpaper random"
+        "${mod}, V, exec, ${ipc} launcher clipboard"
 
         # --- Others ---
         ", Print, exec, hyprshot -m region --clipboard-only"
@@ -369,7 +373,7 @@ programs.kitty = {
 
       # Lock Binds (work even when the PC is locked)
       bindl = [
-        "${mod}, INSERT, exec, ${ipc} volume muteOutput"
+        "${mod}, INSERT, exec, ${ipc} volume muteInput"
       ];
 
       # Mouse Binds
