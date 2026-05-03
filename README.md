@@ -94,7 +94,7 @@ lsblk
 ```
 
 ```bash
-mount /dev/sdb2 /mnt/Ventoy
+mount /dev/sdb1 /mnt/Ventoy
 ```
 
 ```bash
@@ -125,7 +125,28 @@ rm /mnt/etc/nixos/README.md
 
 ---
 
-## 📌 Step 7: Initialize git repository
+
+## 📌 Step 7: Edit configuration files
+
+Use `nano` to review and edit your configuration files before installation:
+
+```bash
+nano /mnt/etc/nixos/configuration.nix
+```
+
+```bash
+nano /mnt/etc/nixos/flake.nix
+```
+
+```bash
+nano /mnt/etc/nixos/home.nix
+```
+
+Make sure your username, hostname, hardware configuration, apps you like and all other configs are just like you want.
+
+---
+
+## 📌 Step 8: Initialize git repository
 
 ```bash
 cd /mnt/etc/nixos
@@ -141,7 +162,7 @@ git add .
 
 ---
 
-## 📌 Step 8: Install NixOS with flake
+## 📌 Step 9: Install NixOS with flake
 
 ```bash
 nixos-install --root /mnt --flake /mnt/etc/nixos#Desktop-NixOS
@@ -149,7 +170,7 @@ nixos-install --root /mnt --flake /mnt/etc/nixos#Desktop-NixOS
 
 ---
 
-## 📌 Step 9: Set user password and reboot
+## 📌 Step 10: Set user password and reboot
 
 ```bash
 nixos-enter --root /mnt -c 'passwd belem'
@@ -162,7 +183,7 @@ reboot
 ---
 
 
-## 📌 Step 11: 
+## 📌 Step 12: 
 
 ### (q) Quit and do nothing
 
@@ -180,7 +201,7 @@ nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem
 rebot
 ```
 
-## 📌 Step 12: Post-installation
+## 📌 Step 13: Post-installation
 
 Launch noctalia for the first time
 

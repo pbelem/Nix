@@ -143,7 +143,6 @@ programs.kitty = {
     jq
     fd
     ripgrep
-    localsend
     ncdu # Disk usage analyzer with an ncurses interface
     (yazi.override {
       _7zz = _7zz-rar; # Support for RAR extraction
@@ -154,8 +153,15 @@ programs.kitty = {
     poppler-utils
     imagemagick
 
+    # Password & file sharing
+    localsend
+    keepassxc
+    syncthing
+
     # Software Development
     vscodium
+    #zed-editor # high performance text editor/ide
+    dbeaver-bin
     mise
     nixd
     nil
@@ -171,11 +177,11 @@ programs.kitty = {
     # Media, Documents & Streaming
     obs-studio
     gimp
+    upscayl
     mpv
     vlc
     imv
     libreoffice
-    localsend
     zathura
     zathuraPkgs.zathura_pdf_mupdf
     zathuraPkgs.zathura_djvu
@@ -194,10 +200,28 @@ programs.kitty = {
     };
   };
 
+  services.syncthing.enable = true;
+
   # Basic user settings
   home.username = "belem";
   home.homeDirectory = "/home/belem";
   home.stateVersion = "25.11";
+
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+  };
+
+  systemd.user.tmpfiles.rules = [
+    # Syntax: d (directory) path mode user group age argument
+    "d ${config.home.homeDirectory}/Docker 0755 - - - -"
+    "d ${config.home.homeDirectory}/AppImages 0755 - - - -"
+    "d ${config.home.homeDirectory}/Workspace 0755 - - - -"
+
+    # Subfolders (tmpfiles handles the parent creation if needed)
+    "d ${config.home.homeDirectory}/Syncthing/KeePassXC 0755 - - - -"
+    
+  ];
 
   wayland.windowManager.hyprland = {
     enable = true;

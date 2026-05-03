@@ -113,7 +113,8 @@
   # Simple firewall (optional)
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 ];   # SSH if needed
+    allowedTCPPorts = [ 22 8384 22000 ];
+    allowedUDPPorts = [ 22000 21027 ];
   };
 
   # ------------------------------------------------------------
@@ -151,6 +152,8 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.tailscale.enable = true;
   
   # Run the 'trim' command weekly on your SSD.
   services.fstrim.enable = true;
