@@ -91,13 +91,13 @@
     priority = 100;
     swapDevices = 1;
   };
-
+/*
   swapDevices = [ {
     device = "/var/lib/swapfile";
     size = 4 * 1024;
     priority = 10;
   } ];
-
+*/
   # kill processes when out of memory instaed of crashing
   systemd.oomd.enable = true;
 
@@ -115,6 +115,7 @@
     enable = true;
     allowedTCPPorts = [ 22 8384 22000 ];
     allowedUDPPorts = [ 22000 21027 ];
+    trustedInterfaces = [ "tailscale0" ];
   };
 
   # ------------------------------------------------------------
@@ -167,6 +168,31 @@
   nixpkgs.config.permittedInsecurePackages = [
     "electron-36.9.5"
   ];
+
+  services.syncthing = {
+    enable = true;
+    user = "belem";
+    dataDir = "/home/belem";
+    configDir = "/home/belem/.config/Syncthing";
+    guiAddress = "0.0.0.0:8384";
+    
+    openDefaultPorts = true;
+
+    settings = {
+      devices = {
+        "x7-Pro" = {
+          id = "OOGXT7G-3WHWZFA-BW4KZDU-WBYALPL-4TXIZN2-CJ2PT4V-MCRIT7D-KC2VLQU";
+          };
+      };
+      folders = {
+        "Syncthing" = {
+          id = "uryd6-xtpbc";
+          path = "/home/belem/Syncthing";
+          devices = [ "x7-Pro" ];
+        };
+      };
+    };
+  };
 
   # ------------------------------------------------------------
   # udev rules (SayoDevice, etc.)
@@ -255,6 +281,7 @@
     docker
     tailscale
     appimage-run
+    syncthing
     
     # Hardware and Wayland management
     brightnessctl

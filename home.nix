@@ -156,7 +156,6 @@ programs.kitty = {
     # Password & file sharing
     localsend
     keepassxc
-    syncthing
 
     # Software Development
     vscodium
@@ -199,8 +198,6 @@ programs.kitty = {
       user.email = "belem@tuta.io";
     };
   };
-
-  services.syncthing.enable = true;
 
   # Basic user settings
   home.username = "belem";
