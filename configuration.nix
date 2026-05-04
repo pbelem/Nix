@@ -51,8 +51,19 @@
     #time.hardwareClockInLocalTime = true; # Fixes the problem of incorrect time between Windows and NixOS
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;   # Zen Kernel for better desktop responsiveness
-  boot.kernelParams = [ "amdgpu.dc=1" ];  # improves compatibility with modern monitors
+  boot = {
+  kernelPackages = pkgs.linuxPackages_zen; # Zen Kernel for better desktop responsiveness
+  kernelParams = [ "amdgpu.dc=1" ];
+  # Modules to DDC/CI + external backlight
+  kernelModules = [ 
+    "i2c-dev" 
+    "ddcci-backlight" 
+  ];
+
+  extraModulePackages = with config.boot.kernelPackages; [ 
+    ddcci-driver 
+  ];
+};
 
   hardware.graphics = {
     enable = true;
@@ -61,6 +72,7 @@
     package32 = pkgsUnstable.pkgsi686Linux.mesa;
   };
 
+  hardware.i2c.enable = true;
   hardware.enableAllFirmware = true; 
   hardware.enableRedistributableFirmware = true; # Improves compatibility with AMD CPUs and modern GPUs
 
@@ -199,6 +211,7 @@
   # ------------------------------------------------------------
   services.udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5750", MODE="0666"
+    KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
   '';
 
   # ------------------------------------------------------------
@@ -236,6 +249,7 @@
       "networkmanager"
       "docker"
       "video"
+      "i2c"
       "audio"   # for sound access
       "input"   # for input device permissions (keyboard, mouse)
     ];

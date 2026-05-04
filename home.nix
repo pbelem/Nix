@@ -58,8 +58,7 @@
 };
 
 programs.kitty = {
-    enable = true;
-    
+    enable = true; 
     font = {
       name = "JetBrainsMono Nerd Font";
       size = 13;
@@ -153,13 +152,12 @@ programs.kitty = {
     poppler-utils
     imagemagick
 
-    # Password & file sharing
-    localsend
+    # Passwords
     keepassxc
 
     # Software Development
     vscodium
-    #zed-editor # high performance text editor/ide
+    zed-editor # high performance text editor/ide
     dbeaver-bin
     mise
     nixd
@@ -226,13 +224,23 @@ programs.kitty = {
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     settings = let
-      # Variables handled directly by Nix to prevent Hyprland scope issues
       mod = "SUPER";
       # Using uwsm app -- ensures Noctalia receives the command in the correct Wayland session
       ipc = "uwsm app -- noctalia-shell ipc call";
+
+      toggle-minimize = pkgs.writeShellScript "toggle-minimize" ''
+        active_ws=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.workspace.name')
+        
+        if [ "$active_ws" = "special:minimized" ]; then
+            ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspace +0
+        else
+            ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent special:minimized
+        fi
+      '';
+
     in {
       monitor = [
-        ", 1920x1080@320, auto, 1"
+        "DP-1, 1920x1080@240.00, auto, 1"
       ];
 
       exec-once = [
@@ -320,7 +328,6 @@ programs.kitty = {
         "${mod}, RETURN, exec, kitty"
         "${mod}, DELETE, killactive"
         "${mod}, E, exec, kitty -e yazi"
-        "${mod}, ESC, exec, kitty -e btop"
         "${mod}, B, exec, brave"
 
         # --- Windows & Workspaces ---
@@ -328,9 +335,9 @@ programs.kitty = {
         "${mod}, Home, fullscreen, 0"
         
         # Minimize to special workspace
-        "${mod}, End, movetoworkspacesilent, special:minimized"
-        "${mod} SHIFT, End, togglespecialworkspace, minimized"
-        "${mod} SHIFT, Home, movetoworkspace, +0"
+        "${mod}, End, exec, ${toggle-minimize}"
+        "${mod} ALT, End, togglespecialworkspace, minimized"
+        
 
         # Move focus
         "${mod}, left, movefocus, l"
