@@ -8,10 +8,9 @@
   # Activate Noctalia shell
   programs.noctalia-shell = {
     enable = true;
-    # Optional: choose a theme, plugins, etc.
-    # settings = {
-    #   theme = "Catppuccin-Macchiato";
-    # };
+    settings = (builtins.fromJSON (builtins.readFile ./noctalia.json)) // {
+      "shell.port" = 8180; 
+    };
   };
 
   programs.neovim = {
@@ -134,7 +133,7 @@ programs.kitty = {
     discord
     telegram-desktop
     zapzap
-    anydesk
+    anydesk # or rustdesk
 
     # Terminal, File Management & CLI Tools
     fzf
