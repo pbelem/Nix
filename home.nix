@@ -1,4 +1,4 @@
-{ config, pkgs, pkgsUnstable, noctalia, inputs, ... }:
+{ config, pkgs, lib, pkgsUnstable, noctalia, inputs, ... }:
 
 {
   imports = [
@@ -155,8 +155,6 @@ programs.kitty = {
     keepassxc
 
     # Software Development
-    vscodium
-    zed-editor # high performance text editor/ide
     dbeaver-bin
     mise
     nixd
@@ -216,6 +214,26 @@ programs.kitty = {
     "d ${config.home.homeDirectory}/Syncthing/KeePassXC 0755 - - - -"
     
   ];
+
+  # Wallpaper Repository Automation
+  home.activation = {
+    cloneWallpapers = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      # Define the target directory dynamically
+      WALLPAPER_DIR="${config.home.homeDirectory}/Pictures/Wallpapers"
+      
+      # Check if the directory already exists as a git repository
+      if [ ! -d "$WALLPAPER_DIR/.git" ]; then
+        echo "Cloning the Krishna wallpaper repository..."
+        # Remove the folder if it exists but is not a repository
+        rm -rf "$WALLPAPER_DIR"
+        ${pkgs.git}/bin/git clone https://github.com/krishna4a6av/Wallpapers "$WALLPAPER_DIR"
+      else
+        # Update existing files silently
+        echo "Wallpaper repository already exists. Pulling updates..."
+        cd "$WALLPAPER_DIR" && ${pkgs.git}/bin/git pull --quiet
+      fi
+    '';
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
