@@ -124,65 +124,77 @@ programs.kitty = {
     };
   };
 
-  # ------------------------------------------------------------
-  # User Specific Packages (Productivity & Media)
-  # ------------------------------------------------------------
-  home.packages = with pkgs; [
-    # Communication
-    brave
-    discord
-    telegram-desktop
-    zapzap
-    anydesk # or rustdesk
+# ------------------------------------------------------------
+# User Specific Packages
+# ------------------------------------------------------------
+home.packages = with pkgs; [
+  # Communication
+  brave              # Privacy-focused web browser based on Chromium
+  discord            # Voice, video, and text communication platform
+  telegram-desktop   # Desktop client for the Telegram messaging platform
+  zapzap             # WhatsApp desktop client for Linux
+  rustdesk           # Open-source remote desktop and screen sharing tool
 
-    # Terminal, File Management & CLI Tools
-    fzf
-    zoxide
-    jq
-    fd
-    ripgrep
-    ncdu # Disk usage analyzer with an ncurses interface
-    (yazi.override {
-      _7zz = _7zz-rar; # Support for RAR extraction
-    })
+  # Terminal, File Management & CLI Tools
+  fzf                # Fuzzy finder for quickly searching files and commands
+  zoxide             # Smarter and faster directory navigation tool
+  jq                 # Command-line JSON processor and formatter
+  fd                 # Simple and fast alternative to the find command
+  ripgrep            # Extremely fast text search tool for code and files
+  ncdu               # Disk usage analyzer with terminal interface
+  p7zip              # Support for 7z archive compression and extraction
+  xarchiver          # Lightweight graphical archive manager
+  (yazi.override {
+    _7zz = _7zz-rar;
+  })                 # Modern terminal file manager with RAR support
 
-    # Yazi Preview Dependencies
-    ffmpeg
-    poppler-utils
-    imagemagick
+  # Yazi Preview Dependencies
+  ffmpeg             # Multimedia framework for video and audio processing
+  poppler-utils      # PDF utilities used for previews and text extraction
+  imagemagick        # Image manipulation and conversion toolkit
 
-    # Passwords
-    keepassxc
+  # Passwords
+  keepassxc          # Secure and offline password manager
 
-    # Software Development
-    dbeaver-bin
-    mise
-    nixd
-    nil
+  # Software Development
+  dbeaver-bin        # Universal database management tool
+  mise               # Development environment and runtime manager
+  nixd               # Language server for Nix development
+  nil                # Alternative Nix language server with IDE support
 
-    # Gaming & Performance
-    heroic
-    lutris
-    prismlauncher
-    protonplus
-    bottles
-    mangohud
+  # System Status & Ricing
+  btop               # Resource monitor with a modern terminal UI
+  fastfetch          # Fast system information display tool
+  cmatrix            # Matrix-style terminal animation effect
+  cava               # Audio visualizer for the terminal
 
-    # Media, Documents & Streaming
-    obs-studio
-    gimp
-    upscayl
-    mpv
-    vlc
-    imv
-    libreoffice
-    zathura
-    zathuraPkgs.zathura_pdf_mupdf
-    zathuraPkgs.zathura_djvu
-    zathuraPkgs.zathura_cb
+  # Wayland/Hyprland Tools (Moved from system packages)
+  brightnessctl      # Command-line brightness control utility
+  wl-clipboard       # Clipboard utilities for Wayland environments
+  wlsunset           # Adjusts screen color temperature based on time of day
+  hyprshot           # Screenshot utility designed for Hyprland
 
-    monocraft
-  ];
+  # Gaming & Performance
+  heroic             # Launcher for Epic Games, GOG, and Amazon games
+  lutris             # Game management platform for Linux
+  prismlauncher      # Custom Minecraft launcher with mod support
+  protonplus         # Tool for managing Proton-GE and Wine-GE versions
+  bottles            # Wine environment manager for running Windows apps
+  mangohud           # Performance overlay for games and Vulkan/OpenGL apps
+
+  # Media, Documents & Streaming
+  obs-studio         # Software for recording and live streaming
+  gimp               # Advanced image editing and graphic design tool
+  upscayl            # AI-powered image upscaling application
+  mpv                # Lightweight and powerful media player
+  vlc                # Versatile multimedia player supporting many formats
+  imv                # Minimalist image viewer for Wayland and X11
+  libreoffice        # Complete open-source office productivity suite
+  zathura            # Minimalist keyboard-driven document viewer
+  zathuraPkgs.zathura_pdf_mupdf # PDF backend for Zathura using MuPDF
+  zathuraPkgs.zathura_djvu      # DjVu document support for Zathura
+  zathuraPkgs.zathura_cb        # Comic book archive support for Zathura
+];
 
   # Git configuration (name and email)
   programs.git = {

@@ -278,32 +278,14 @@
   # Core System Packages (Essential for system maintenance)
   # ------------------------------------------------------------
   environment.systemPackages = with pkgs; [
-    # Base tools and extraction
-    wget
-    curl
-    killall
-    file
-    unzip
-    p7zip
-    xarchiver
-    btop
-    fastfetch
-    cmatrix
-    cava
-    
-    # System and network management
-    docker
-    tailscale
-    appimage-run
-    syncthing
-    
-    # Hardware and Wayland management
-    brightnessctl
-    power-profiles-daemon
-    ddcutil
-    wl-clipboard
-    wlsunset
-    hyprshot
+    wget          # Command-line tool for downloading files from the web
+    curl          # Tool for transferring data using URLs and APIs
+    killall       # Utility to terminate processes by name
+    file          # Detects and identifies file types
+    unzip         # Extracts files from ZIP archives
+    appimage-run  # Runs AppImage applications with NixOS compatibility
+    ddcutil       # Controls monitor settings through DDC/CI
+    brightnessctl # Adjusts screen brightness from the command line
   ];
 
   programs.hyprland = {
@@ -349,6 +331,7 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
+    monocraft
   ];
 
   programs.appimage = {
@@ -357,12 +340,8 @@
   };
 
   programs.gamemode.enable = true;
-
   programs.adb.enable = true;
-
-  programs.dconf = {
-    enable = true;
-  };
+  programs.dconf.enable = true;
 
   # ------------------------------------------------------------
   # Automatic Nix garbage collection (frees space)
