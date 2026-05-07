@@ -29,7 +29,7 @@ programs.neovim = {
           -- add LazyVim and import its plugins
           { "LazyVim/LazyVim", import = "lazyvim.plugins" },
           
-          -- Sobrescreve o tema padrão para herdar o fundo do Noctalia/Kitty
+          - Overwrites the default theme to inherit the Noctalia/Kitty background
           {
             "folke/tokyonight.nvim",
             opts = {
@@ -94,7 +94,7 @@ programs.neovim = {
         "break",
         {
           "type": "os",
-          "key": " ", // Alterado para o ícone do NixOS
+          "key": " ", 
           "keyColor": "34"
         },
         {
@@ -104,7 +104,7 @@ programs.neovim = {
         },
         {
           "type": "packages",
-          "format": "{} (nix)", // Alterado de pacman para nix
+          "format": "{} (nix)", 
           "key": " ",
           "keyColor": "34"
         },
@@ -322,7 +322,6 @@ home.packages = with pkgs; [
 
     settings = let
       mod = "SUPER";
-      # Using uwsm app -- ensures Noctalia receives the command in the correct Wayland session
       ipc = "uwsm app -- noctalia-shell ipc call";
 
       toggle-minimize = pkgs.writeShellScript "toggle-minimize" ''
