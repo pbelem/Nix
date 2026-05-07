@@ -13,27 +13,33 @@
     };
   };
 
-  programs.neovim = {
+programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
 
-      plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
       lazy-nvim
     ];
 
-      extraLuaConfig = ''
+    extraLuaConfig = ''
       -- Bootstrap lazy.nvim
       require("lazy").setup({
         spec = {
           -- add LazyVim and import its plugins
           { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-          -- import any extras modules here
-          -- { import = "lazyvim.plugins.extras.lang.typescript" },
-          -- { import = "lazyvim.plugins.extras.lang.json" },
-          -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-          -- import/override with your plugins
-          -- { import = "plugins" },
+          
+          -- Sobrescreve o tema padrão para herdar o fundo do Noctalia/Kitty
+          {
+            "folke/tokyonight.nvim",
+            opts = {
+              transparent = true,
+              styles = {
+                sidebars = "transparent",
+                floats = "transparent",
+              },
+            },
+          },
         },
         defaults = {
           lazy = false,
@@ -176,8 +182,8 @@
       cursor_shape = "beam";
       cursor_beam_thickness = "4";
       # Trail animation 
-      cursor_trail = "3"; # Increasing it from 1 to 3 will make the trail a little longer and more visible.
-      cursor_trail_decay = "0.1 0.4"; # Controls the time (in seconds) it takes for the tip and end of the trail to disappear.
+      cursor_trail = "1"; # Increasing it from 1 to 3 will make the trail a little longer and more visible.
+      #cursor_trail_decay = "0.1 0.4"; # Controls the time (in seconds) it takes for the tip and end of the trail to disappear.
       cursor_trail_start_threshold = "0";
       # Blink
       cursor_blink_interval = "0.5";

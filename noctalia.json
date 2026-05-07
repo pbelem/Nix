@@ -591,7 +591,7 @@
     "location": "top_right",
     "overlayLayer": true,
     "backgroundOpacity": 1,
-    "respectExpireTimeout": true,
+    "respectExpireTimeout": false,
     "lowUrgencyDuration": 3,
     "normalUrgencyDuration": 8,
     "criticalUrgencyDuration": 15,
@@ -640,7 +640,7 @@
   },
   "brightness": {
     "brightnessStep": 5,
-    "enforceMinimum": true,
+    "enforceMinimum": false,
     "enableDdcSupport": true,
     "backlightDeviceMappings": []
   },
@@ -663,10 +663,6 @@
       },
       {
         "enabled": true,
-        "id": "telegram"
-      },
-      {
-        "enabled": true,
         "id": "zathura"
       },
       {
@@ -679,19 +675,11 @@
       },
       {
         "enabled": true,
-        "id": "discord"
-      },
-      {
-        "enabled": true,
-        "id": "steam"
-      },
-      {
-        "enabled": true,
         "id": "kitty"
       },
       {
         "enabled": true,
-        "id": "zed"
+        "id": "hyprland"
       }
     ],
     "enableUserTheming": false
