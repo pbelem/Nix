@@ -56,71 +56,133 @@
   ];
 };
 
-programs.kitty = {
-    enable = true; 
+# --- Kitty Session ---
+  xdg.configFile."kitty/session.conf".text = ''
+    launch --hold fastfetch
+  '';
+
+  # --- Fastfetch Config (JSONC) ---
+  xdg.configFile."fastfetch/config.jsonc".text = ''
+    {
+      "logo": {
+        // "source": "~/.config/fastfetch/aesthetic.jpg",
+        "type": "kitty",
+        "height": 16,
+        "padding": {
+          "top": 0
+        }
+      },
+      "display": {
+        "separator": "- "
+      },
+      "modules": [
+        {
+          "type": "custom",
+          "format": "\u001b[31m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  "
+        },
+        "break",
+        {
+          "type": "title",
+          "keyWidth": 10
+        },
+        "break",
+        {
+          "type": "os",
+          "key": " ", // Alterado para o ícone do NixOS
+          "keyColor": "34"
+        },
+        {
+          "type": "kernel",
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "packages",
+          "format": "{} (nix)", // Alterado de pacman para nix
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "shell",
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "terminal",
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "wm",
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "cursor",
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "terminalfont",
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "uptime",
+          "key": " ",
+          "keyColor": "34"
+        },
+        {
+          "type": "datetime",
+          "format": "{1}-{3}-{11}",
+          "key": " ",
+          "keyColor": "34"
+        },
+        "break",
+        {
+          "type": "custom",
+          "format": "\u001b[31m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  "
+        },
+        "break",
+        "break"
+      ]
+    }
+  '';
+
+  # --- Kitty Terminal ---
+  programs.kitty = {
+    enable = true;
     font = {
       name = "JetBrainsMono Nerd Font";
-      size = 13;
+      size = 11;
     };
 
     settings = {
-      # Behavior and window
+      # Startup and Theme
+      startup_session = "session.conf";
+      include = "current-theme.conf";
+      
+      # Fonts
       bold_font = "auto";
       italic_font = "auto";
       bold_italic_font = "auto";
-      mouse_hide_wait = "2.0";
-      cursor_shape = "block";
-      url_style = "dotted";
-      adjust_line_height = "120%";
+
+      # Window Behavior and Background
       confirm_os_window_close = "0";
-      background_opacity = "0.95";
+      window_padding_width = "25";
+      background_opacity = "0.9";
 
-      # Theme: Catppuccin Mocha
-      foreground = "#CDD6F4";
-      background = "#1E1E2E";
-      selection_foreground = "#1E1E2E";
-      selection_background = "#F5E0DC";
-      cursor = "#F5E0DC";
-      cursor_text_color = "#1E1E2E";
-      url_color = "#F5E0DC";
-
-      # Bordas e Abas
-      active_border_color = "#cdd6f4";
-      inactive_border_color = "#6C7086";
-      bell_border_color = "#F9E2AF";
-      wayland_titlebar_color = "system";
-      macos_titlebar_color = "system";
-      active_tab_foreground = "#11111B";
-      active_tab_background = "#CBA6F7";
-      inactive_tab_foreground = "#CDD6F4";
-      inactive_tab_background = "#181825";
-      tab_bar_background = "#11111B";
-
-      # Marks
-      mark1_foreground = "#1E1E2E";
-      mark1_background = "#B4BEFE";
-      mark2_foreground = "#1E1E2E";
-      mark2_background = "#CBA6F7";
-      mark3_foreground = "#1E1E2E";
-      mark3_background = "#74C7EC";
-
-      # 16 terminal color
-      color0 = "#45475A";
-      color8 = "#585B70";
-      color1 = "#F38BA8";
-      color9 = "#F38BA8";
-      color2 = "#A6E3A1";
-      color10 = "#A6E3A1";
-      color3 = "#F9E2AF";
-      color11 = "#F9E2AF";
-      color4 = "#89B4FA";
-      color12 = "#89B4FA";
-      color5 = "#F5C2E7";
-      color13 = "#F5C2E7";
-      color6 = "#94E2D5";
-      color14 = "#94E2D5";
-      color7 = "#BAC2DE";
-      color15 = "#A6ADC8";
+      #  Cursor Behavior and Style
+      cursor_shape = "beam";
+      cursor_beam_thickness = "4";
+      # Trail animation 
+      cursor_trail = "3"; # Increasing it from 1 to 3 will make the trail a little longer and more visible.
+      cursor_trail_decay = "0.1 0.4"; # Controls the time (in seconds) it takes for the tip and end of the trail to disappear.
+      cursor_trail_start_threshold = "0";
+      # Blink
+      cursor_blink_interval = "0.5";
+      cursor_stop_blinking_after = "0";
+      cursor_shape_unfocused = "unchanged";
     };
   };
 
