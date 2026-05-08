@@ -62,6 +62,95 @@ programs.neovim = {
   ];
 };
 
+# --- Yazi File Manager Config ---
+  xdg.configFile."yazi/yazi.toml".text = ''
+    [opener]
+    # 'block = true' for terminal apps, 'orphan = true' for detached GUIs
+    edit = [ { run = 'nvim "$@"', block = true, desc = "Neovim" } ]
+    document = [ { run = 'zathura "$@"', orphan = true, desc = "Zathura" } ]
+    image = [ { run = 'imv "$@"', orphan = true, desc = "IMV" } ]
+    media = [ { run = 'vlc "$@"', orphan = true, desc = "VLC" } ]
+    office = [ { run = 'libreoffice "$@"', orphan = true, desc = "LibreOffice" } ]
+    gimp = [ { run = 'gimp "$@"', orphan = true, desc = "GIMP" } ]
+
+    [open]
+    prepend_rules = [
+      # Text and Code
+      { mime = "text/*", use = "edit" },
+      { mime = "application/json", use = "edit" },
+      
+      # Documents and Comics (Zathura)
+      { mime = "application/pdf", use = "document" },
+      { mime = "image/vnd.djvu", use = "document" },
+      { mime = "application/x-cbz", use = "document" },
+      { mime = "application/x-cbr", use = "document" },
+      { mime = "application/epub+zip", use = "document" },
+      
+      # Media (VLC)
+      { mime = "video/*", use = "media" },
+      { mime = "audio/*", use = "media" },
+      
+      # Images (IMV for quick viewing, GIMP for project files)
+      { mime = "image/x-xcf", use = "gimp" },
+      { mime = "image/*", use = "image" },
+      
+      # Office (LibreOffice)
+      { mime = "application/vnd.oasis.opendocument.*", use = "office" },
+      { mime = "application/vnd.openxmlformats-officedocument.*", use = "office" },
+      { mime = "application/msword", use = "office" },
+      { mime = "application/vnd.ms-excel", use = "office" },
+      { mime = "application/vnd.ms-powerpoint", use = "office" }
+    ]
+  '';
+
+  # --- Default Applications (XDG Mime) ---
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      # Text Files (Neovim)
+      "text/plain" = [ "nvim.desktop" ];
+      "text/markdown" = [ "nvim.desktop" ];
+      "text/csv" = [ "nvim.desktop" ];
+      "application/json" = [ "nvim.desktop" ];
+      
+      # Documents and Comics (Zathura)
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+      "image/vnd.djvu" = [ "org.pwmt.zathura.desktop" ];
+      "application/x-cbz" = [ "org.pwmt.zathura.desktop" ];
+      "application/x-cbr" = [ "org.pwmt.zathura.desktop" ];
+      
+      # Video and Audio (VLC)
+      "video/mp4" = [ "vlc.desktop" ];
+      "video/x-matroska" = [ "vlc.desktop" ]; # .mkv files
+      "video/webm" = [ "vlc.desktop" ];
+      "audio/mpeg" = [ "vlc.desktop" ]; # .mp3 files
+      "audio/ogg" = [ "vlc.desktop" ];
+      "audio/wav" = [ "vlc.desktop" ];
+      "audio/flac" = [ "vlc.desktop" ];
+      
+      # Images (IMV as default, GIMP for project files)
+      "image/png" = [ "imv.desktop" ];
+      "image/jpeg" = [ "imv.desktop" ];
+      "image/jpg" = [ "imv.desktop" ];
+      "image/gif" = [ "imv.desktop" ];
+      "image/webp" = [ "imv.desktop" ];
+      "image/svg+xml" = [ "imv.desktop" ];
+      "image/x-xcf" = [ "gimp.desktop" ];
+      
+      # LibreOffice (Writer, Calc, Impress)
+      "application/vnd.oasis.opendocument.text" = [ "libreoffice-writer.desktop" ]; # .odt
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [ "libreoffice-writer.desktop" ]; # .docx
+      "application/msword" = [ "libreoffice-writer.desktop" ]; # .doc
+      "application/vnd.oasis.opendocument.spreadsheet" = [ "libreoffice-calc.desktop" ]; # .ods
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [ "libreoffice-calc.desktop" ]; # .xlsx
+      "application/vnd.ms-excel" = [ "libreoffice-calc.desktop" ]; # .xls
+      "application/vnd.oasis.opendocument.presentation" = [ "libreoffice-impress.desktop" ]; # .odp
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [ "libreoffice-impress.desktop" ]; # .pptx
+      "application/vnd.ms-powerpoint" = [ "libreoffice-impress.desktop" ]; # .ppt
+    };
+  };
+
+
 # --- Kitty Session ---
   xdg.configFile."kitty/session.conf".text = ''
     launch --hold fastfetch
