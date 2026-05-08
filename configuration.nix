@@ -310,17 +310,22 @@
       plugins = [ "git" "docker" "dotnet" ];
     };
     shellAliases = {
-#NixOS aliases 
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";  # to create a .backup file use "-b backup"
+#nixos aliases
+      nhos = "nh os switch";
+      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";  # -b backup
       nel = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       ned = "sudo nix-env \
       --profile /nix/var/nix/profiles/system \
-      --delete-generations"; # Space + first generation number + space + second one...
+      --delete-generations"; # + generation number as an argument
+      nfu = "nix flake update /etc/nixos"; # updates flake.lock, but it doesn't rebuild anything
 #home-manager aliases
-      nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem"; # to create a .backup file use "-b backup"
+      nhhs = "nh home switch";
+      nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem"; # -b backup
       hml = "nix run home-manager generations";
-      hmd = "nix run home-manager remove-generations"; # Space + first generation number + space + second one... 
-      hma = "echo '-home-manager-generation/activate'"; # cp this with /nix/store/xyz123... in front, no space
+      hmd = "nix run home-manager remove-generations"; # + generation number as an argument
+      hma = "echo '-home-manager-generation/activate'/nix/store/xyz123'";
+#nh aliases
+      nhck = "nh clean all --keep"; # + generation number as an argument
     };
   };
 
@@ -346,16 +351,15 @@
   # ------------------------------------------------------------
   # Automatic Nix garbage collection (frees space)
   # ------------------------------------------------------------
-  systemd.services.nix-gc-keep-generations = {
-    script = ''
-      ${pkgs.nix}/bin/nix-env --profile /nix/var/nix/profiles/system --delete-generations +3
-      ${pkgs.nix}/bin/nix-env --profile /nix/var/nix/profiles/per-user/belem/home-manager --delete-generations +3
-      ${pkgs.nix}/bin/nix-store --gc
-      ${pkgs.nix}/bin/nix-store --optimise
-    '';
-    startAt = "weekly";
+  programs.nh = {
+    enable = true;
+    clean = {
+      enable = true;
+      extraArgs = "--keep 3";
+      dates = "weekly";
+    };
+    flake = "/etc/nixos"; 
   };
-  nix.gc.automatic = false;
 
   # ------------------------------------------------------------
   # Final
