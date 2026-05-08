@@ -28,6 +28,7 @@ programs.neovim = {
         spec = {
           -- add LazyVim and import its plugins
           { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+          { import = "lazyvim.plugins.extras.lang.python" },
           
           -- Overwrites the default theme to inherit the Noctalia/Kitty background
           {
@@ -59,6 +60,7 @@ programs.neovim = {
     wget
     ripgrep
     fd
+    python3
   ];
 };
 
@@ -70,7 +72,7 @@ programs.neovim = {
     document = [ { run = 'zathura "$@"', orphan = true, desc = "Zathura" } ]
     image = [ { run = 'imv "$@"', orphan = true, desc = "IMV" } ]
     media = [ { run = 'vlc "$@"', orphan = true, desc = "VLC" } ]
-    office = [ { run = 'libreoffice "$@"', orphan = true, desc = "LibreOffice" } ]
+    office = [ { run = 'onlyoffice-desktopeditors "$@"', orphan = true, desc = "OnlyOffice" } ]
     gimp = [ { run = 'gimp "$@"', orphan = true, desc = "GIMP" } ]
 
     [open]
@@ -94,7 +96,7 @@ programs.neovim = {
       { mime = "image/x-xcf", use = "gimp" },
       { mime = "image/*", use = "image" },
       
-      # Office (LibreOffice)
+      # Office (OnlyOffice)
       { mime = "application/vnd.oasis.opendocument.*", use = "office" },
       { mime = "application/vnd.openxmlformats-officedocument.*", use = "office" },
       { mime = "application/msword", use = "office" },
@@ -137,19 +139,18 @@ programs.neovim = {
       "image/svg+xml" = [ "imv.desktop" ];
       "image/x-xcf" = [ "gimp.desktop" ];
       
-      # LibreOffice (Writer, Calc, Impress)
-      "application/vnd.oasis.opendocument.text" = [ "libreoffice-writer.desktop" ]; # .odt
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [ "libreoffice-writer.desktop" ]; # .docx
-      "application/msword" = [ "libreoffice-writer.desktop" ]; # .doc
-      "application/vnd.oasis.opendocument.spreadsheet" = [ "libreoffice-calc.desktop" ]; # .ods
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [ "libreoffice-calc.desktop" ]; # .xlsx
-      "application/vnd.ms-excel" = [ "libreoffice-calc.desktop" ]; # .xls
-      "application/vnd.oasis.opendocument.presentation" = [ "libreoffice-impress.desktop" ]; # .odp
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [ "libreoffice-impress.desktop" ]; # .pptx
-      "application/vnd.ms-powerpoint" = [ "libreoffice-impress.desktop" ]; # .ppt
+      # Office (OnlyOffice)
+      "application/vnd.oasis.opendocument.text" = [ "onlyoffice-desktopeditors.desktop" ]; # .odt
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [ "onlyoffice-desktopeditors.desktop" ]; # .docx
+      "application/msword" = [ "onlyoffice-desktopeditors.desktop" ]; # .doc
+      "application/vnd.oasis.opendocument.spreadsheet" = [ "onlyoffice-desktopeditors.desktop" ]; # .ods
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [ "onlyoffice-desktopeditors.desktop" ]; # .xlsx
+      "application/vnd.ms-excel" = [ "onlyoffice-desktopeditors.desktop" ]; # .xls
+      "application/vnd.oasis.opendocument.presentation" = [ "onlyoffice-desktopeditors.desktop" ]; # .odp
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [ "onlyoffice-desktopeditors.desktop" ]; # .pptx
+      "application/vnd.ms-powerpoint" = [ "onlyoffice-desktopeditors.desktop" ]; # .ppt
     };
   };
-
 
 # --- Kitty Session ---
   xdg.configFile."kitty/session.conf".text = ''
@@ -346,7 +347,7 @@ home.packages = with pkgs; [
   mpv                # Lightweight and powerful media player
   vlc                # Versatile multimedia player supporting many formats
   imv                # Minimalist image viewer for Wayland and X11
-  libreoffice        # Complete open-source office productivity suite
+  onlyoffice-desktopeditors        # Complete open-source office productivity suite
   zathura            # Minimalist keyboard-driven document viewer
   zathuraPkgs.zathura_pdf_mupdf # PDF backend for Zathura using MuPDF
   zathuraPkgs.zathura_djvu      # DjVu document support for Zathura
