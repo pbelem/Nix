@@ -29,7 +29,7 @@ programs.neovim = {
           -- add LazyVim and import its plugins
           { "LazyVim/LazyVim", import = "lazyvim.plugins" },
           
-          - Overwrites the default theme to inherit the Noctalia/Kitty background
+          -- Overwrites the default theme to inherit the Noctalia/Kitty background
           {
             "folke/tokyonight.nvim",
             opts = {
