@@ -181,31 +181,6 @@
     "electron-36.9.5"
   ];
 
-  services.syncthing = {
-    enable = true;
-    user = "belem";
-    dataDir = "/home/belem";
-    configDir = "/home/belem/.config/Syncthing";
-    guiAddress = "0.0.0.0:8384";
-    
-    openDefaultPorts = true;
-
-    settings = {
-      devices = {
-        "x7-Pro" = {
-          id = "OOGXT7G-3WHWZFA-BW4KZDU-WBYALPL-4TXIZN2-CJ2PT4V-MCRIT7D-KC2VLQU";
-          };
-      };
-      folders = {
-        "Syncthing" = {
-          id = "uryd6-xtpbc";
-          path = "/home/belem/Syncthing";
-          devices = [ "x7-Pro" ];
-        };
-      };
-    };
-  };
-
   # ------------------------------------------------------------
   # udev rules (SayoDevice, etc.)
   # ------------------------------------------------------------

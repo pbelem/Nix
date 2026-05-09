@@ -380,8 +380,10 @@ home.packages = with pkgs; [
     "d ${config.home.homeDirectory}/AppImages 0755 - - - -"
     "d ${config.home.homeDirectory}/Workspace 0755 - - - -"
 
-    # Subfolders (tmpfiles handles the parent creation if needed)
-    "d ${config.home.homeDirectory}/Syncthing/KeePassXC 0755 - - - -"
+    # Subfolders 
+    "d ${config.home.homeDirectory}/Videos/OBS 0755 - - - -"
+    "d ${config.home.homeDirectory}/Videos/KdenLive 0755 - - - -"
+
     
   ];
 
