@@ -341,7 +341,6 @@ home.packages = with pkgs; [
   mangohud           # Performance overlay for games and Vulkan/OpenGL apps
 
   # Media, Documents & Streaming
-  obs-studio         # Software for recording and live streaming
   gimp               # Advanced image editing and graphic design tool
   upscayl            # AI-powered image upscaling application
   mpv                # Lightweight and powerful media player
@@ -353,6 +352,15 @@ home.packages = with pkgs; [
   zathuraPkgs.zathura_djvu      # DjVu document support for Zathura
   zathuraPkgs.zathura_cb        # Comic book archive support for Zathura
 ];
+
+programs.obs-studio = {
+    enable = true;  # Software for recording and live streaming
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-pipewire-audio-capture 
+      obs-vkcapture 
+      wlrobs    # Improved screenshot capture for Wayland/Hyprland environments
+    ];
+  };
 
   # Git configuration (name and email)
   programs.git = {
@@ -383,8 +391,6 @@ home.packages = with pkgs; [
     # Subfolders 
     "d ${config.home.homeDirectory}/Videos/OBS 0755 - - - -"
     "d ${config.home.homeDirectory}/Videos/KdenLive 0755 - - - -"
-
-    
   ];
 
   # Wallpaper Repository Automation
