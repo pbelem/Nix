@@ -14,42 +14,45 @@
   };
 
 programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
+  enable = true;
+  viAlias = true;
+  vimAlias = true;
 
-    plugins = with pkgs.vimPlugins; [
-      lazy-nvim
-    ];
+  plugins = with pkgs.vimPlugins; [
+    lazy-nvim
+    direnv-vim
+  ];
 
-    extraLuaConfig = ''
-      -- Bootstrap lazy.nvim
-      require("lazy").setup({
-        spec = {
-          -- add LazyVim and import its plugins
-          { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-          { import = "lazyvim.plugins.extras.lang.python" },
-          
-          -- Overwrites the default theme to inherit the Noctalia/Kitty background
-          {
-            "folke/tokyonight.nvim",
-            opts = {
-              transparent = true,
-              styles = {
-                sidebars = "transparent",
-                floats = "transparent",
-              },
+  extraLuaConfig = ''
+    -- Bootstrap lazy.nvim
+    require("lazy").setup({
+      spec = {
+        -- add LazyVim and import its plugins
+        { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+        { import = "lazyvim.plugins.extras.lang.python" },
+        { import = "lazyvim.plugins.extras.lang.rust" },
+        { "direnv/direnv.vim" },
+        
+        -- Overwrites the default theme to inherit the Noctalia/Kitty background
+        {
+          "folke/tokyonight.nvim",
+          opts = {
+            transparent = true,
+            styles = {
+              sidebars = "transparent",
+              floats = "transparent",
             },
           },
         },
-        defaults = {
-          lazy = false,
-          version = false, -- always use the latest git commit
-        },
-        install = { colorscheme = { "tokyonight", "habamax" } },
-        checker = { enabled = true }, -- automatically check for plugin updates
-      })
-    '';
+      },
+      defaults = {
+        lazy = false,
+        version = false, 
+      },
+      install = { colorscheme = { "tokyonight", "habamax" } },
+      checker = { enabled = true }, 
+    })
+  '';
 
   # 3. Essential dependencies for LazyVim to compile/download things
   extraPackages = with pkgs; [
@@ -60,7 +63,7 @@ programs.neovim = {
     wget
     ripgrep
     fd
-    python3
+    direnv
   ];
 };
 
@@ -311,9 +314,6 @@ home.packages = with pkgs; [
   poppler-utils      # PDF utilities used for previews and text extraction
   imagemagick        # Image manipulation and conversion toolkit
 
-  # Passwords
-  keepassxc          # Secure and offline password manager
-
   # Software Development
   dbeaver-bin        # Universal database management tool
   mise               # Development environment and runtime manager
@@ -353,7 +353,29 @@ home.packages = with pkgs; [
   zathuraPkgs.zathura_cb        # Comic book archive support for Zathura
 ];
 
-programs.obs-studio = {
+programs.direnv = {
+  enable = true;
+  # Enables optimized integration for Nix and Nix Flakes (essential!)
+  nix-direnv.enable = true;
+  enableZshIntegration = true;
+};
+
+  programs.keepassxc = {
+    enable = true;
+    settings = {
+      Browser = {
+        Enabled = true;                  # Enables browser integration
+        ShowNotification = true;
+        BestMatchOnly = false;
+        UnlockDatabase = true;
+        MatchUrlScheme = true;
+        SupportBrowserProxy = true;
+        UseCustomProxy = false;          # Uses the package's native proxy
+      };
+    };
+  };
+
+  programs.obs-studio = {
     enable = true;  # Software for recording and live streaming
     plugins = with pkgs.obs-studio-plugins; [
       obs-pipewire-audio-capture 
@@ -391,6 +413,7 @@ programs.obs-studio = {
     # Subfolders 
     "d ${config.home.homeDirectory}/Videos/OBS 0755 - - - -"
     "d ${config.home.homeDirectory}/Videos/KdenLive 0755 - - - -"
+    "d ${config.home.homeDirectory}/Syncthing/KeePassXC 0755 - - - -"
   ];
 
   # Wallpaper Repository Automation

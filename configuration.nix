@@ -181,6 +181,37 @@
     "electron-36.9.5"
   ];
 
+  services.syncthing = {
+    enable = true;
+    user = "belem";
+    dataDir = "/home/belem";
+    configDir = "/home/belem/.config/Syncthing";
+    guiAddress = "0.0.0.0:8384";
+    
+    openDefaultPorts = true;
+
+    settings = {
+      devices = {
+        "x7-Pro" = {
+          id = "SUUCFYP-TZYJECE-L25GHEM-NZRJVEO-AYJHUHJ-YTKYOBA-QDMTYMV-RJJOKQC";
+          };
+      };
+      folders = {
+        "Syncthing" = {
+          id = "uryd6-xtpbc";
+          path = "/home/belem/Syncthing";
+          devices = [ "x7-Pro" ];
+        };
+      };
+    };
+  };
+
+  # Vpn service for minecraft java
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [ "3b19b3a716413850" ];
+  };
+
   # ------------------------------------------------------------
   # udev rules (SayoDevice, etc.)
   # ------------------------------------------------------------
@@ -227,6 +258,7 @@
       "i2c"
       "audio"   # for sound access
       "input"   # for input device permissions (keyboard, mouse)
+      "adbusers"
     ];
     shell = pkgs.zsh;
     initialPassword = "mudar123";   # change after first login
@@ -296,9 +328,8 @@
 #home-manager aliases
       nhhs = "nh home switch";
       nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem"; # -b backup
-      hml = "nix run home-manager generations";
+      hml = "nix run home-manager generations"; # /activate
       hmd = "nix run home-manager remove-generations"; # + generation number as an argument
-      hma = "echo '-home-manager-generation/activate'/nix/store/xyz123'";
 #nh aliases
       nhck = "nh clean all --keep"; # + generation number as an argument
     };
