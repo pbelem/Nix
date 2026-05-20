@@ -99,7 +99,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 25;
+    memoryPercent = 50;
     priority = 100;
     swapDevices = 1;
   };
@@ -114,8 +114,11 @@
   systemd.oomd.enable = true;
 
   boot.kernel.sysctl = {
-    "vm.swappiness" = 40;
-  };
+  "vm.swappiness" = 180;
+  "vm.page-cluster" = 0;
+  "vm.watermark_boost_factor" = 0;
+  "vm.watermark_scale_factor" = 125;
+};
 
   # ------------------------------------------------------------
   # Networking
@@ -125,10 +128,20 @@
   # Simple firewall (optional)
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 8384 22000 ];
+    allowedTCPPorts = [ 22 8384 22000 25565 10000 ];
     allowedUDPPorts = [ 22000 21027 ];
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = [ "tailscale0" "zttqh7fh2g" ];
   };
+
+  # allowedUDPPorts
+  # 22 = ssh
+  # 22000 && 8384 = syncthing
+  # 25565 && 10000 = minecraft
+  # allowedUDPPorts
+  # 22000 && 21027 = syncthing
+  # trustedInterfaces
+  # tailscale0 = tailscale
+  # zttqh7fh2g = zerotier
 
   # ------------------------------------------------------------
   # Audio (PipeWire) – essential for Fifine AM8 microphone
@@ -176,6 +189,11 @@
 
   # Nix settings and maintenance
   nixpkgs.config.allowUnfree = true;
+
+  services.ananicy = {
+    enable = true;
+    package = pkgs.ananicy-cpp; 
+  };
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-36.9.5"
@@ -237,7 +255,6 @@
     }];
     packages = [
       "com.github.tchx84.Flatseal"
-      "com.jetbrains.IntelliJ-IDEA-Community"
       "org.gnome.Boxes"
       "org.kde.kdenlive"
     ];
@@ -305,6 +322,7 @@
     enable = true;
     remotePlay.openFirewall = true; 
     dedicatedServer.openFirewall = true; 
+    extest.enable = true;
   };
 
   programs.zsh = {
@@ -326,7 +344,7 @@
       --delete-generations"; # + generation number as an argument
       nfu = "nix flake update /etc/nixos"; # updates flake.lock, but it doesn't rebuild anything
 #home-manager aliases
-      nhhs = "nh home switch";
+      nhhs = "mv ~/.config/hypr/hyprland.conf ~/.config/backup && nh home switch";
       nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem"; # -b backup
       hml = "nix run home-manager generations"; # /activate
       hmd = "nix run home-manager remove-generations"; # + generation number as an argument

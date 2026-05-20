@@ -16,9 +16,14 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, hyprland, ... }@inputs:
+  outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, hyprland, nixvim, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -30,25 +35,20 @@ outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, hyprla
         config.allowUnfree = true;
       };
     in {
-      # NixOS configuration
       nixosConfigurations.Desktop-NixOS = nixpkgs.lib.nixosSystem {
         inherit system;
-        
         specialArgs = { inherit inputs pkgsUnstable noctalia; };
-        
         modules = [
           ./configuration.nix
           nix-flatpak.nixosModules.nix-flatpak
         ];
       };
 
-      # Standalone configuration of home-manager for the user belem
       homeConfigurations.belem = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        
         extraSpecialArgs = { inherit inputs pkgsUnstable noctalia; };
-        
         modules = [
+          nixvim.homeModules.nixvim
           ./home.nix
         ];
       };
