@@ -2,6 +2,8 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    DEFAULT_BROWSER = "zen-beta";
+    BROWSER = "zen-beta";
   };
 
   xdg.mimeApps = {
@@ -12,6 +14,13 @@
       "text/markdown" = [ "nvim.desktop" ];
       "text/csv" = [ "nvim.desktop" ];
       "application/json" = [ "nvim.desktop" ];
+
+      # Web (Zen)
+      "text/html" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/http" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/https" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/about" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/unknown" = [ "zen-beta.desktop" ];
       
       # Documents and Comics (Zathura)
       "application/pdf" = [ "org.pwmt.zathura.desktop" ];

@@ -4,10 +4,10 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     
-    ohMyZsh = {
+    oh-my-zsh = {
       enable = true;
       plugins = [ "git" "docker" "dotnet" ];
     };

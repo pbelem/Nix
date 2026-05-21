@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   xdg.userDirs = {
@@ -18,12 +18,5 @@
     "d ${config.home.homeDirectory}/Syncthing/KeePassXC 0755 - - - -"
   ];
 
-  # Declaratively downloads and maps the wallpaper repository to your Pictures folder
-  home.file."Pictures/Wallpapers" = {
-    source = builtins.fetchGit {
-      url = "https://github.com/krishna4a6av/Wallpapers.git";
-      ref = "main";
-    };
-    recursive = true;
-  };
+  home.file."Pictures/Wallpapers".source = inputs.wallpapers;
 }

@@ -6,7 +6,7 @@
   ];
 
   # --- Fastfetch Config (JSONC) ---
-  xdg.configFile."fastfetch/config.jsonc".text = ''
+   xdg.configFile."fastfetch/config.jsonc".text = ''
     {
       "logo": {
         // "source": "~/.config/fastfetch/aesthetic.jpg",
@@ -22,7 +22,7 @@
       "modules": [
         {
           "type": "custom",
-          "format": "\\u001b[31m  \\u001b[31m  \\u001b[32m  \\u001b[33m  \\u001b[34m  \\u001b[35m  \\u001b[36m  "
+          "format": "\u001b[31m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  "
         },
         "break",
         {
@@ -85,11 +85,11 @@
         "break",
         {
           "type": "custom",
-          "format": "\\u001b[31m  \\u001b[31m  \\u001b[32m  \\u001b[33m  \\u001b[34m  \\u001b[35m  \\u001b[36m  "
+          "format": "\u001b[31m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  "
         },
         "break",
         "break"
       ]
     }
-  '';
+  ''; 
 }

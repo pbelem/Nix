@@ -40,7 +40,8 @@ programs.nixvim = {
     todo-comments.enable = true;
     trouble.enable = true;
     luasnip.enable = true;
-    nvim-notify.enable = true;
+    notify.enable = true;
+    web-devicons.enable = true;
 
     which-key = {
       enable = true;
@@ -73,7 +74,7 @@ programs.nixvim = {
 
     lspkind = {
       enable = true;
-      cmp = {
+      settings.cmp = {
         enable = true;
         menu = {
           nvim_lsp = "[LSP]";

@@ -107,10 +107,10 @@
 
       bind = [
         # --- Applications ---
-        "${mod}, RETURN, exec, kitty"
+        "${mod}, RETURN, exec, uwsm app -- kitty"
         "${mod}, DELETE, killactive"
-        "${mod}, E, exec, kitty -e yazi"
-        "${mod}, B, exec, zen"
+        "${mod}, E, exec, uwsm app -- kitty -e yazi"
+        "${mod}, B, exec, uwsm app -- zen-beta"
 
         # --- Windows & Workspaces ---
         "${mod}, T, togglefloating"

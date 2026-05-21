@@ -18,7 +18,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -28,6 +28,11 @@
         nixpkgs.follows = "unstable";
         home-manager.follows = "home-manager";
       };
+    };
+
+    wallpapers = {
+      url = "github:krishna4a6av/Wallpapers";
+      flake = false;
     };
   };
 

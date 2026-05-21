@@ -302,6 +302,7 @@
   # Core System Packages (Essential for system maintenance)
   # ------------------------------------------------------------
   environment.systemPackages = with pkgs; [
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta
     wget          # Command-line tool for downloading files from the web
     curl          # Tool for transferring data using URLs and APIs
     killall       # Utility to terminate processes by name
