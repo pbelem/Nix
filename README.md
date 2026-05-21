@@ -216,3 +216,55 @@ uwsm app -- noctalia-shell & disown
 ## ✅ Done
 
 After these steps, your NixOS system will be installed.
+
+.
+├── flake.nix
+├── README.md
+│
+├── hosts
+│   └── Desktop-NixOS
+│       ├── default.nix
+│       ├── configuration.nix
+│       ├── hardware-configuration.nix
+│       └── home-desktop-extras.nix
+│
+├── users
+│   └── belem
+│       └── home.nix
+│
+└── modules
+    │
+    ├── cli
+    │   ├── default.nix
+    │   ├── direnv.nix
+    │   ├── git.nix
+    │   ├── nixvim.nix
+    │   ├── tools.nix
+    │   ├── yazi.nix
+    │   └── zsh.nix
+    │
+    ├── desktop
+    │   ├── default.nix
+    │   ├── cursor.nix
+    │   ├── default-apps.nix
+    │   ├── hyprland.nix
+    │   ├── kitty.nix
+    │   ├── user-dir.nix
+    │   │
+    │   └── noctalia
+    │       ├── noctalia.nix
+    │       └── noctalia.json
+    │
+    ├── development
+    │   ├── default.nix
+    │   ├── dotnet.nix
+    │   ├── java.nix
+    │   ├── node.nix
+    │   └── rust.nix
+    │
+    └── programs
+        ├── default.nix
+        ├── fastfetch.nix
+        ├── keepassxc.nix
+        ├── obs-studio.nix
+        └── packages.nix
