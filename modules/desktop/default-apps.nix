@@ -1,3 +1,9 @@
+{
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -43,3 +49,4 @@
       "application/vnd.ms-powerpoint" = [ "onlyoffice-desktopeditors.desktop" ]; # .ppt
     };
   };
+}

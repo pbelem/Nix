@@ -1,8 +1,12 @@
+{ pkgs, ... }:
+
+{
   programs.obs-studio = {
-    enable = true;  # Software for recording and live streaming
+    enable = true; # Software for recording and live streaming
     plugins = with pkgs.obs-studio-plugins; [
-      obs-pipewire-audio-capture 
-      obs-vkcapture 
-      wlrobs    # Improved screenshot capture for Wayland/Hyprland environments
+      obs-pipewire-audio-capture
+      obs-vkcapture
+      wlrobs # Legacy screen capture for Wayland (prefer the native PipeWire source)
     ];
   };
+}

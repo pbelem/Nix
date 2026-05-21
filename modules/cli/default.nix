@@ -2,8 +2,8 @@
   imports = [
     ./direnv.nix
     ./git.nix
-    ./misc.nix
     ./nixvim.nix
+    ./tools.nix
     ./yazi.nix
     ./zsh.nix
   ];

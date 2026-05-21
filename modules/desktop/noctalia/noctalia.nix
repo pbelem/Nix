@@ -1,6 +1,14 @@
+{ config, pkgs, lib, noctalia, ... }:
+
+{
+  imports = [
+    # Imports the home module directly passed from the flake inputs
+    noctalia.homeModules.default
+  ];
+
   programs.noctalia-shell = {
     enable = true;
-    settings = (builtins.fromJSON (builtins.readFile ./noctalia.json)) // {
-      "shell.port" = 8180; 
-    };
+    # Dynamically parses the JSON configuration file within the same directory
+    settings = builtins.fromJSON (builtins.readFile ./noctalia.json);
   };
+}

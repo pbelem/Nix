@@ -1,8 +1,24 @@
-  (yazi.override {
-    _7zz = _7zz-rar;
-  })                 # Modern terminal file manager with RAR support
+{ pkgs, ... }:
 
-xdg.configFile."yazi/yazi.toml".text = ''
+{
+  programs.yazi = {
+    enable = true;
+    enableZshIntegration = true;
+    
+    # Override to use 7zz-rar for RAR archive extraction support
+    package = pkgs.yazi.override {
+      _7zz = pkgs._7zz-rar;
+    };
+  };
+
+  home.packages = with pkgs; [
+    # Yazi Preview Dependencies
+    ffmpeg          # Multimedia framework for video and audio processing (video thumbnails)
+    poppler-utils   # PDF utilities used for previews and text extraction
+    imagemagick     # Image manipulation and conversion toolkit (image rendering)
+  ];
+
+  xdg.configFile."yazi/yazi.toml".text = ''
     [opener]
     # 'block = true' for terminal apps, 'orphan = true' for detached GUIs
     edit = [ { run = 'nvim "$@"', block = true, desc = "Neovim" } ]
@@ -41,3 +57,4 @@ xdg.configFile."yazi/yazi.toml".text = ''
       { mime = "application/vnd.ms-powerpoint", use = "office" }
     ]
   '';
+}

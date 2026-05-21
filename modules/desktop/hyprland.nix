@@ -1,4 +1,6 @@
+{ config, pkgs, inputs, ... }:
 
+{
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -6,7 +8,7 @@
 
     settings = let
       mod = "SUPER";
-      ipc = "uwsm app -- noctalia-shell ipc call";
+      ipc = "noctalia-shell ipc call";
 
       toggle-minimize = pkgs.writeShellScript "toggle-minimize" ''
         active_ws=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.workspace.name')
@@ -17,14 +19,14 @@
             ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent special:minimized
         fi
       '';
-
     in {
       monitor = [
         "DP-1, 1920x1080@240.00, auto, 1"
       ];
 
       exec-once = [
-        "uwsm app -- noctalia-shell"
+        "sleep 1 && uwsm app -- noctalia-shell"
+        "soteria"
       ];
 
       env = [
@@ -108,7 +110,7 @@
         "${mod}, RETURN, exec, kitty"
         "${mod}, DELETE, killactive"
         "${mod}, E, exec, kitty -e yazi"
-        "${mod}, B, exec, brave"
+        "${mod}, B, exec, zen"
 
         # --- Windows & Workspaces ---
         "${mod}, T, togglefloating"
@@ -117,13 +119,16 @@
         # Minimize to special workspace
         "${mod}, End, exec, ${toggle-minimize}"
         "${mod} ALT, End, togglespecialworkspace, minimized"
-        
 
         # Move focus
         "${mod}, left, movefocus, l"
         "${mod}, right, movefocus, r"
         "${mod}, up, movefocus, u"
         "${mod}, down, movefocus, d"
+        "${mod}, l, movefocus, l"
+        "${mod}, h, movefocus, r"
+        "${mod}, k, movefocus, u"
+        "${mod}, j, movefocus, d"
 
         # Workspace Navigation
         "${mod}, Page_Down, workspace, +1"
@@ -132,7 +137,6 @@
         "${mod} ALT, Page_Up, movetoworkspace, -1"
 
         # Move the active window to a specific workspace (1-10)
-        # Great for removing windows from the Special Workspace
         "${mod} SHIFT, 1, movetoworkspace, 1"
         "${mod} SHIFT, 2, movetoworkspace, 2"
         "${mod} SHIFT, 3, movetoworkspace, 3"
@@ -188,3 +192,4 @@
       ];
     };
   };
+}

@@ -164,7 +164,7 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
+    #  xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
     ];
     config.hyprland.default = [ "hyprland" "gtk" ];
@@ -325,34 +325,6 @@
     extest.enable = true;
   };
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    ohMyZsh = {
-      enable = true;
-      plugins = [ "git" "docker" "dotnet" ];
-    };
-    shellAliases = {
-#nixos aliases
-      nhos = "nh os switch";
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";  # -b backup
-      nel = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
-      ned = "sudo nix-env \
-      --profile /nix/var/nix/profiles/system \
-      --delete-generations"; # + generation number as an argument
-      nfu = "nix flake update /etc/nixos"; # updates flake.lock, but it doesn't rebuild anything
-#home-manager aliases
-      nhhs = "mv ~/.config/hypr/hyprland.conf ~/.config/backup && nh home switch";
-      nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem"; # -b backup
-      hml = "nix run home-manager generations"; # /activate
-      hmd = "nix run home-manager remove-generations"; # + generation number as an argument
-#nh aliases
-      nhck = "nh clean all --keep"; # + generation number as an argument
-    };
-  };
-
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     fira-code
@@ -368,6 +340,7 @@
     binfmt = true;
   };
 
+  programs.zsh.enable = true;
   programs.gamemode.enable = true;
   programs.adb.enable = true;
   programs.dconf.enable = true;

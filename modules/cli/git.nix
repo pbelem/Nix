@@ -1,3 +1,4 @@
+{
   programs.git = {
     enable = true;
     settings = {
@@ -6,3 +7,4 @@
       user.email = "belem@tuta.io";
     };
   };
+}

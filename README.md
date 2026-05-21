@@ -191,8 +191,6 @@ reboot
 sudo chown -R belem:users /etc/nixos
 ```
 
-If you are using my configuration.nix file, you can use my alias "nrhm" instead of the next command
-
 ```bash
 nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem
 ```
@@ -217,16 +215,18 @@ uwsm app -- noctalia-shell & disown
 
 After these steps, your NixOS system will be installed.
 
+# NixOS Configuration Structure
+
+```txt
 .
 ├── flake.nix
 ├── README.md
 │
 ├── hosts
 │   └── Desktop-NixOS
-│       ├── default.nix
 │       ├── configuration.nix
-│       ├── hardware-configuration.nix
-│       └── home-desktop-extras.nix
+│       ├── default.nix
+│       └── hardware-configuration.nix
 │
 ├── users
 │   └── belem
@@ -256,6 +256,7 @@ After these steps, your NixOS system will be installed.
     │       └── noctalia.json
     │
     ├── development
+    │   ├── common.nix
     │   ├── default.nix
     │   ├── dotnet.nix
     │   ├── java.nix
@@ -265,6 +266,10 @@ After these steps, your NixOS system will be installed.
     └── programs
         ├── default.nix
         ├── fastfetch.nix
-        ├── keepassxc.nix
         ├── obs-studio.nix
-        └── packages.nix
+        ├── packages.nix
+        └── zen-browser.nix
+```
+
+
+
