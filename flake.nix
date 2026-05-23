@@ -6,19 +6,19 @@
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     hyprland.url = "github:hyprwm/Hyprland";
-    
+
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "unstable";
     };
-    
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+    nvf = {
+      url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -36,19 +36,31 @@
     };
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, noctalia, nix-flatpak, hyprland, nixvim, zen-browser, ... }@inputs:
+  outputs = {
+    self,
+    nixpkgs,
+    unstable,
+    home-manager,
+    noctalia,
+    nix-flatpak,
+    hyprland,
+    nvf,
+    zen-browser,
+    ...
+  }@inputs:
     let
       system = "x86_64-linux";
-      
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
-      
+
       pkgsUnstable = import unstable {
         inherit system;
         config.allowUnfree = true;
       };
+
     in {
       nixosConfigurations.Desktop-NixOS = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -63,17 +75,18 @@
         ];
       };
 
-      homeConfigurations.belem = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      homeConfigurations.belem =
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
 
-        extraSpecialArgs = {
-          inherit inputs pkgsUnstable noctalia;
+          extraSpecialArgs = {
+            inherit inputs pkgsUnstable noctalia;
+          };
+
+          modules = [
+            nvf.homeManagerModules.default
+            ./users/belem/home.nix
+          ];
         };
-
-        modules = [
-          nixvim.homeModules.nixvim
-          ./users/belem/home.nix
-        ];
-      };
     };
 }

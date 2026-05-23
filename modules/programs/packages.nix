@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     # Browsers and Communication
-    brave                           # Privacy-focused web browser
     discord                         # Voice, video, and text communication platform
     telegram-desktop                # Desktop client for the Telegram messaging platform
     zapzap                          # WhatsApp desktop client for Linux

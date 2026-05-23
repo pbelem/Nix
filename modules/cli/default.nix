@@ -2,7 +2,7 @@
   imports = [
     ./direnv.nix
     ./git.nix
-    ./nixvim.nix
+    ./nvf.nix
     ./tools.nix
     ./yazi.nix
     ./zsh.nix
