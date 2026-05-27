@@ -3,7 +3,7 @@
 {
   programs.java = {
     enable = true;
-    # Uses OpenJDK 21 as the default system-wide Java Development Kit
+    # Uses OpenJDK 25 as the default system-wide Java Development Kit
     package = pkgs.jdk25;
   };
 

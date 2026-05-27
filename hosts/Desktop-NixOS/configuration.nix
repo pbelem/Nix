@@ -301,16 +301,15 @@
   # ------------------------------------------------------------
   # Core System Packages (Essential for system maintenance)
   # ------------------------------------------------------------
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta
-    wget          # Command-line tool for downloading files from the web
-    curl          # Tool for transferring data using URLs and APIs
-    killall       # Utility to terminate processes by name
-    file          # Detects and identifies file types
-    unzip         # Extracts files from ZIP archives
-    appimage-run  # Runs AppImage applications with NixOS compatibility
-    ddcutil       # Controls monitor settings through DDC/CI
-    brightnessctl # Adjusts screen brightness from the command line
+    pkgs.wget          # Command-line tool for downloading files from the web
+    pkgs.curl          # Tool for transferring data using URLs and APIs
+    pkgs.killall       # Utility to terminate processes by name
+    pkgs.file          # Detects and identifies file types
+    pkgs.unzip         # Extracts files from ZIP archives
+    pkgs.ddcutil       # Controls monitor settings through DDC/CI
+    pkgs.brightnessctl # Adjusts screen brightness from the command line
   ];
 
   programs.hyprland = {
@@ -338,7 +337,17 @@
 
   programs.appimage = {
     enable = true;
-    binfmt = true;
+    binfmt   = true;
+    package  = pkgs.appimage-run.override {
+      extraPkgs = pkgs: [
+        # Add libraries commonly required by AppImages.
+        pkgs.libdeflate
+        pkgs.fuse
+        pkgs.libGL
+        pkgs.glib
+        pkgs.bzip2
+      ];
+    };
   };
 
   programs.zsh.enable = true;

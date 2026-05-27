@@ -30,8 +30,8 @@
       hml = "nix run home-manager generations"; # /activate
       hmd = "nix run home-manager remove-generations"; # + generation number as an argument
       # Nix Helper
-      nhos = "nh os switch";
-      nhhs = "nh home switch";
+      nhos = "nh os switch /etc/nixos";
+      nhhs = "nh home switch /etc/nixos";
       nhck = "nh clean all --keep"; # + generation number as an argument
     };
 
