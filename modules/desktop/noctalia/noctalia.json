@@ -1,10 +1,11 @@
-{
+﻿{
   "settingsVersion": 59,
   "bar": {
     "barType": "framed",
     "position": "top",
     "monitors": [
-      "DP-1"
+      "DP-1",
+      "DP-2"
     ],
     "density": "default",
     "showOutline": false,
@@ -85,6 +86,10 @@
           "textColor": "none",
           "useFixedWidth": false,
           "visualizerType": "mirrored"
+        },
+        {
+          "iconColor": "error",
+          "id": "SessionMenu"
         }
       ],
       "center": [
@@ -135,12 +140,18 @@
           "id": "plugin:usb-drive-manager"
         },
         {
-          "hideWhenZero": false,
-          "hideWhenZeroUnread": false,
+          "displayMode": "onhover",
           "iconColor": "none",
-          "id": "NotificationHistory",
-          "showUnreadBadge": true,
-          "unreadBadgeColor": "primary"
+          "id": "Microphone",
+          "middleClickCommand": "pwvucontrol || pavucontrol",
+          "textColor": "none"
+        },
+        {
+          "displayMode": "onhover",
+          "iconColor": "none",
+          "id": "Volume",
+          "middleClickCommand": "pwvucontrol || pavucontrol",
+          "textColor": "none"
         },
         {
           "applyToAllMonitors": false,
@@ -150,11 +161,12 @@
           "textColor": "none"
         },
         {
-          "displayMode": "onhover",
+          "hideWhenZero": false,
+          "hideWhenZeroUnread": false,
           "iconColor": "none",
-          "id": "Volume",
-          "middleClickCommand": "pwvucontrol || pavucontrol",
-          "textColor": "none"
+          "id": "NotificationHistory",
+          "showUnreadBadge": true,
+          "unreadBadgeColor": "primary"
         },
         {
           "colorizeDistroLogo": false,
@@ -179,8 +191,223 @@
     "rightClickCommand": "",
     "screenOverrides": [
       {
-        "enabled": false,
-        "name": "DP-1"
+        "enabled": true,
+        "name": "DP-1",
+        "position": "top",
+        "widgets": {
+          "center": [
+            {
+              "characterCount": 5,
+              "colorizeIcons": false,
+              "emptyColor": "secondary",
+              "enableScrollWheel": true,
+              "focusedColor": "primary",
+              "followFocusedScreen": false,
+              "fontWeight": "bold",
+              "groupedBorderOpacity": 1,
+              "hideUnoccupied": false,
+              "iconScale": 0.8,
+              "id": "Workspace",
+              "labelMode": "name",
+              "occupiedColor": "secondary",
+              "pillSize": 0.6,
+              "showApplications": true,
+              "showApplicationsHover": false,
+              "showBadge": true,
+              "showLabelsOnlyWhenOccupied": true,
+              "unfocusedIconsOpacity": 1
+            }
+          ],
+          "left": [
+            {
+              "colorizeDistroLogo": false,
+              "colorizeSystemIcon": "none",
+              "colorizeSystemText": "none",
+              "customIconPath": "",
+              "enableColorization": false,
+              "icon": "noctalia",
+              "id": "ControlCenter",
+              "useDistroLogo": false
+            },
+            {
+              "colorizeSystemIcon": "none",
+              "colorizeSystemText": "none",
+              "customIconPath": "",
+              "enableColorization": false,
+              "icon": "rocket",
+              "iconColor": "none",
+              "id": "Launcher",
+              "useDistroLogo": false
+            },
+            {
+              "clockColor": "none",
+              "customFont": "",
+              "formatHorizontal": "HH:mm ddd, MMM dd",
+              "formatVertical": "HH mm - dd MM",
+              "id": "Clock",
+              "tooltipFormat": "HH:mm ddd, MMM dd",
+              "useCustomFont": false
+            },
+            {
+              "colorName": "primary",
+              "hideWhenIdle": false,
+              "id": "AudioVisualizer",
+              "width": 200
+            }
+          ],
+          "right": [
+            {
+              "blacklist": [],
+              "chevronColor": "none",
+              "colorizeIcons": false,
+              "drawerEnabled": true,
+              "hidePassive": false,
+              "id": "Tray",
+              "pinned": [
+                "steam"
+              ]
+            },
+            {
+              "displayMode": "onhover",
+              "iconColor": "none",
+              "id": "Volume",
+              "middleClickCommand": "pwvucontrol || pavucontrol",
+              "textColor": "none"
+            },
+            {
+              "applyToAllMonitors": false,
+              "displayMode": "onhover",
+              "iconColor": "none",
+              "id": "Brightness",
+              "textColor": "none"
+            },
+            {
+              "iconColor": "none",
+              "id": "WallpaperSelector"
+            },
+            {
+              "iconColor": "none",
+              "id": "SessionMenu"
+            }
+          ]
+        }
+      },
+      {
+        "enabled": true,
+        "name": "DP-2",
+        "widgets": {
+          "center": [
+            {
+              "characterCount": 5,
+              "colorizeIcons": false,
+              "emptyColor": "secondary",
+              "enableScrollWheel": true,
+              "focusedColor": "primary",
+              "followFocusedScreen": false,
+              "fontWeight": "bold",
+              "groupedBorderOpacity": 1,
+              "hideUnoccupied": false,
+              "iconScale": 0.8,
+              "id": "Workspace",
+              "labelMode": "name",
+              "occupiedColor": "secondary",
+              "pillSize": 0.6,
+              "showApplications": true,
+              "showApplicationsHover": false,
+              "showBadge": true,
+              "showLabelsOnlyWhenOccupied": true,
+              "unfocusedIconsOpacity": 1
+            }
+          ],
+          "left": [
+            {
+              "colorizeDistroLogo": false,
+              "colorizeSystemIcon": "none",
+              "colorizeSystemText": "none",
+              "customIconPath": "",
+              "enableColorization": false,
+              "icon": "noctalia",
+              "id": "ControlCenter",
+              "useDistroLogo": false
+            },
+            {
+              "colorizeSystemIcon": "none",
+              "colorizeSystemText": "none",
+              "customIconPath": "",
+              "enableColorization": false,
+              "icon": "rocket",
+              "iconColor": "none",
+              "id": "Launcher",
+              "useDistroLogo": false
+            },
+            {
+              "compactMode": false,
+              "diskPath": "/",
+              "iconColor": "none",
+              "id": "SystemMonitor",
+              "showCpuCores": false,
+              "showCpuFreq": false,
+              "showCpuTemp": true,
+              "showCpuUsage": false,
+              "showDiskAvailable": false,
+              "showDiskUsage": false,
+              "showDiskUsageAsPercent": false,
+              "showGpuTemp": true,
+              "showLoadAverage": true,
+              "showMemoryAsPercent": false,
+              "showMemoryUsage": true,
+              "showNetworkStats": false,
+              "showSwapUsage": false,
+              "textColor": "none",
+              "useMonospaceFont": true,
+              "usePadding": false
+            }
+          ],
+          "right": [
+            {
+              "blacklist": [],
+              "chevronColor": "none",
+              "colorizeIcons": false,
+              "drawerEnabled": true,
+              "hidePassive": false,
+              "id": "Tray",
+              "pinned": [
+                "steam"
+              ]
+            },
+            {
+              "defaultSettings": {
+                "autoMount": false,
+                "fileBrowser": "yazi",
+                "hideWhenEmpty": false,
+                "iconColor": "none",
+                "showBadge": false,
+                "showNotifications": true,
+                "terminalCommand": "kitty"
+              },
+              "id": "plugin:usb-drive-manager"
+            },
+            {
+              "applyToAllMonitors": false,
+              "displayMode": "onhover",
+              "iconColor": "none",
+              "id": "Brightness",
+              "textColor": "none"
+            },
+            {
+              "hideWhenZero": false,
+              "hideWhenZeroUnread": false,
+              "iconColor": "none",
+              "id": "NotificationHistory",
+              "showUnreadBadge": true,
+              "unreadBadgeColor": "primary"
+            },
+            {
+              "iconColor": "none",
+              "id": "WallpaperSelector"
+            }
+          ]
+        }
       }
     ]
   },
@@ -620,7 +847,7 @@
     "volumeStep": 5,
     "volumeOverdrive": false,
     "spectrumFrameRate": 30,
-    "visualizerType": "linear",
+    "visualizerType": "wave",
     "spectrumMirrored": true,
     "mprisBlacklist": [],
     "preferredPlayer": "",
@@ -721,6 +948,11 @@
     "overviewEnabled": true,
     "gridSnap": false,
     "gridSnapScale": false,
-    "monitorWidgets": []
+    "monitorWidgets": [
+      {
+        "name": "DP-1",
+        "widgets": []
+      }
+    ]
   }
 }

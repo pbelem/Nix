@@ -21,10 +21,15 @@
         fi
       '';
     in {
-      monitor = [
-        "DP-1, 1920x1080@240.00, auto, 1"
-      ];
 
+      monitor = [
+        "DP-1, 2560x1440@180.00, 1080x0, 1"
+        "DP-2, 1920x1080@240.00, 0x0, 1, transform, 3"
+      ];
+      workspace = [
+        "1, monitor:DP-2, default:true"
+        "2, monitor:DP-1"
+      ];
       exec-once = [
         "sleep 1 && uwsm app -- noctalia-shell"
         "soteria"
@@ -103,7 +108,7 @@
         disable_splash_rendering = true;
         force_default_wallpaper = 0;
         vfr = true;
-        vrr = 1;
+        vrr = 0;
       };
 
       bind = [
@@ -165,7 +170,7 @@
         "${mod}, SPACE, exec, ${ipc} launcher toggle"
         "${mod}, I, exec, ${ipc} settings toggle"
         "${mod}, period, exec, ${ipc} launcher emoji"
-        "${mod}, L, exec, ${ipc} sessionMenu toggle"
+/*        "${mod}, L, exec, ${ipc} sessionMenu toggle"*/
         "${mod}, W, exec, ${ipc} wallpaper random"
         "${mod}, V, exec, ${ipc} launcher clipboard"
 
