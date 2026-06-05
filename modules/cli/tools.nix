@@ -8,6 +8,7 @@
     pkgs.ncdu    # Disk usage analyzer with a terminal interface
     pkgs.p7zip   # Support for 7z archive compression and extraction
     pkgs.yt-dlp  # Download video and audio from websites via cli
+    pkgs.android-tools
     pkgsUnstable.ani-cli # Watch anime with english subtitles
   ];
 }

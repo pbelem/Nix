@@ -195,9 +195,11 @@
     package = pkgs.ananicy-cpp; 
   };
 
+/*
   nixpkgs.config.permittedInsecurePackages = [
     "electron-36.9.5"
   ];
+*/
 
   services.syncthing = {
     enable = true;
@@ -275,7 +277,7 @@
       "i2c"
       "audio"   # for sound access
       "input"   # for input device permissions (keyboard, mouse)
-      "adbusers"
+     /* "adbusers" */
     ];
     shell = pkgs.zsh;
     initialPassword = "mudar123";   # change after first login
@@ -352,7 +354,8 @@
 
   programs.zsh.enable = true;
   programs.gamemode.enable = true;
-  programs.adb.enable = true;
+  programs.gamescope.enable = true;
+/*  programs.adb.enable = true; */
   programs.dconf.enable = true;
 
   # ------------------------------------------------------------
