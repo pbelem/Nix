@@ -1,82 +1,73 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  
-  services.dbus.enable = true;
-  security.polkit.enable = true;
-  # support for mounting drives
-  services.gvfs.enable = true;
-  # support for easily mount USB drives and external hard drives
-  services.udisks2.enable = true;
-  # Enable CUPS to print documents
-  services.printing.enable = true;
-  # Enable the OpenSSH daemon
-  services.openssh.enable = true;
-  # Run the 'trim' command weekly on your SSD.
-  services.fstrim.enable = true;
-  # Power Management Services
-  services.power-profiles-daemon.enable = true;
-
-  services.ananicy = {
+  programs.zsh = {
     enable = true;
-    package = pkgs.ananicy-cpp; 
-  };
-
-  services.syncthing = {
-    enable = true;
-    user = "belem";
-    dataDir = "/home/belem";
-    configDir = "/home/belem/.config/Syncthing";
-    guiAddress = "0.0.0.0:8384";
-    openDefaultPorts = true;
-    settings = {
-      devices = {
-        "x7-Pro" = {
-          id = "SUUCFYP-TZYJECE-L25GHEM-NZRJVEO-AYJHUHJ-YTKYOBA-QDMTYMV-RJJOKQC";
-        };
-      };
-      folders = {
-        "Syncthing" = {
-          id = "uryd6-xtpbc";
-          path = "/home/belem/Syncthing";
-          devices = [ "x7-Pro" ];
-        };
-      };
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "docker" "dotnet" ];
+    };
+    
+    shellAliases = {
+      # Custom
+      btw = "echo 'i use nixos, btw'";
+      please = "sudo";
+      # Legacy
+      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";  # -b backup
+      nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem"; # -b backup
+      # System
+      nel = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
+      ned = "sudo nix-env \
+      --profile /nix/var/nix/profiles/system \
+      --delete-generations"; # + generation number as an argument
+      # Flake 
+      nfu = "nix flake update /etc/nixos"; # updates flake.lock, but it doesn't rebuild anything
+      # Home manager
+      hml = "nix run home-manager generations"; # /activate
+      hmd = "nix run home-manager remove-generations"; # + generation number as an argument
+      # Nix Helper
+      nhos = "nh os boot";
+      nhhs = "nh home switch";
+      nhck = "nh clean all --keep"; # + generation number as an argument
     };
   };
 
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true;
-
-  virtualisation.docker = {
+  programs.fzf = {
     enable = true;
-    # clean up unused containers/images
-    autoPrune.enable = true;
+    enableZshIntegration = true;
   };
 
-  services.flatpak = {
+  programs.zoxide = {
     enable = true;
-    remotes = [{
-      name = "flathub";
-      location = "https://flathub.org/repo/flathub.flatpakrepo";
-    }];
-    packages = [
-      "com.github.tchx84.Flatseal"
-      "org.gnome.Boxes"
-      "org.kde.kdenlive"
+    enableZshIntegration = true;
+    options = [
+      "--cmd cd"
     ];
-    uninstallUnmanaged = true;
   };
 
-  services.greetd = {
+  programs.eza = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'uwsm start hyprland-uwsm.desktop'";
-        user = "greeter";
-      };
+    enableZshIntegration = true;
+    git = true; 
+    icons = "auto"; 
+  };
+
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "base16"; # Inherit terminal opacity and remove solid background
+      style = "plain";  # Strips down borders and line numbers for a clean look
     };
+  };
+
+  home.shellAliases = {
+    ll = "eza -l";
+    la = "eza -la";
+    tree = "eza --tree";
+    cat = "bat -p"; 
   };
 }
