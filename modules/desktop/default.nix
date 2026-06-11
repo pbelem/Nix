@@ -2,7 +2,7 @@
   imports = [
     ./cursor.nix
     ./default-apps.nix
-    ./hyprland.nix
+    ./hyprland
     ./kitty.nix
     ./noctalia
     ./user-dir.nix

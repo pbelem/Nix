@@ -9,6 +9,10 @@
     pkgs.p7zip   # Support for 7z archive compression and extraction
     pkgs.yt-dlp  # Download video and audio from websites via cli
     pkgs.android-tools
+    pkgs.file          # Detects and identifies file types
+    pkgs.unzip         # Extracts files from ZIP archives
+    pkgs.zip
+    pkgs.unzip         # Extracts files from ZIP archives
     pkgsUnstable.ani-cli # Watch anime with english subtitles
   ];
 }

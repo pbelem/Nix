@@ -43,6 +43,7 @@
         # --- Strict Privacy (Anti-Fingerprinting) ---
         "privacy.sanitize.sanitizeOnShutdown" = false; # Manual history control
 
+        # Enable only if necessary
         # (may break 240Hz rendering in canvas-based applications)
         "privacy.resistFingerprinting" = false;
 

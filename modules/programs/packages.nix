@@ -5,7 +5,6 @@
     # Browsers and Communication
     pkgs.discord                         # Voice, video, and text communication platform
     pkgs.telegram-desktop                # Desktop client for the Telegram messaging platform
-    pkgs.zapzap                          # WhatsApp desktop client for Linux
     pkgs.rustdesk                        # Open-source remote desktop and screen sharing tool
 
     # Security
@@ -14,6 +13,7 @@
 
     # Software Development
     pkgs.dbeaver-bin                     # Universal database management tool
+    pkgs.vscodium
     pkgs.mise                            # Development environment and runtime manager
     pkgs.nixd                            # Language server for Nix development
     pkgs.nil                             # Alternative Nix language server with IDE support
@@ -45,6 +45,7 @@
     pkgs.imv                             # Minimalist image viewer for Wayland and X11
     pkgs.onlyoffice-desktopeditors       # Complete open-source office productivity suite
     pkgs.xarchiver                       # Lightweight graphical archive manager
+    pkgs.thunar
     pkgs.zathura                         # Minimalist keyboard-driven document viewer
     
     # Zathura Backends (Plugins)
