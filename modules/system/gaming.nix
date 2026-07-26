@@ -10,6 +10,7 @@
 
   environment.systemPackages = [
     pkgs.mangohud
+    pkgs.shadps4
   ];
 
   environment.sessionVariables = {

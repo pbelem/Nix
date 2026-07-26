@@ -1,25 +1,27 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
+  home.packages = [
     # C / C++ Toolchain
-    gcc           # GNU Compiler Collection
-    gnumake       # Build automation tool
+    pkgs.gcc           # GNU Compiler Collection
+    pkgs.gnumake       # Build automation tool
 
     # Python Environment
-    python3       # Python interpreter
-    poetry        # Python dependency management
+    pkgs.python3       # Python interpreter
+    pkgs.poetry        # Python dependency management
 
     # Lua Ecosystem
-    lua           # Lua interpreter
-    luarocks      # Lua package manager
+    pkgs.lua           # Lua interpreter
+    pkgs.luarocks      # Lua package manager
 
     # Nix Tooling
-    nixpkgs-fmt   # Official formatter for Nix code
-    nil           # Language server for Nix
+    pkgs.nixpkgs-fmt   # Official formatter for Nix code
+    pkgs.nil           # Language server for Nix
 
     # Database Tooling (PostgreSQL)
-    postgresql_16 # PostgreSQL client tools and local engine CLI
-    pgcli         # Smart terminal client for Postgres with auto-completion
+    pkgs.postgresql_16 # PostgreSQL client tools and local engine CLI
+    pkgs.pgcli         # Smart terminal client for Postgres with auto-completion
+    pkgs.mysql84  # PostgreSQL client tools and local engine CLI
+
   ];
 }

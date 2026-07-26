@@ -3,7 +3,7 @@
 {
   home.packages = [
     # Browsers and Communication
-    pkgs.discord                         # Voice, video, and text communication platform
+    pkgs.vesktop                         # Discord with audio fix for linux 
     pkgs.telegram-desktop                # Desktop client for the Telegram messaging platform
     pkgs.rustdesk                        # Open-source remote desktop and screen sharing tool
 
