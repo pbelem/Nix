@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgsUnstable,  ... }:
 
 {
   boot.loader = {
@@ -26,7 +26,7 @@
     enable = true;
     algorithm = "zstd";
     memoryPercent = 50;
-    priority = 100;
+    priority = 180;
     swapDevices = 1;
   };
   # kill processes when out of memory instaed of crashing

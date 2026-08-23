@@ -23,5 +23,13 @@
     pkgs.pgcli         # Smart terminal client for Postgres with auto-completion
     pkgs.mysql84  # PostgreSQL client tools and local engine CLI
 
+    # Software Development
+    pkgs.dbeaver-bin    # Universal database management tool
+    pkgs.vscodium
+    pkgs.zed-editor
+    pkgs.mise           # Development environment and runtime manager
+    pkgs.nixd           # Language server for Nix development
+    pkgs.nil            # Alternative Nix language server with IDE support
+    pkgs.postman
   ];
 }

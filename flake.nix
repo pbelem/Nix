@@ -6,6 +6,7 @@
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     hyprland.url = "github:hyprwm/Hyprland";
+    niri.url = "github:sodiboo/niri-flake";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -49,6 +50,7 @@
     noctalia,
     nix-flatpak,
     hyprland,
+    niri,
     nvf,
     nixCats,
     zen-browser,
@@ -73,6 +75,7 @@
         modules = [
           ./hosts/Desktop-NixOS/configuration.nix
           nix-flatpak.nixosModules.nix-flatpak
+          niri.nixosModules.niri
         ];
       };
 

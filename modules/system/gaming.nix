@@ -11,10 +11,11 @@
   environment.systemPackages = [
     pkgs.mangohud
     pkgs.shadps4
+    pkgs.goverlay
   ];
 
   environment.sessionVariables = {
-    MANGOHUD_CONFIG = "cpu_temp,gpu_temp,ram,vram,fps,frame_timing=1,position=top-left";
+   #MANGOHUD_CONFIG = "cpu_temp,gpu_temp,ram,vram,fps,frame_timing=1,position=top-left";
   };
 
   # Vpn service for minecraft java

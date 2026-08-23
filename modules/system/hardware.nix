@@ -6,6 +6,10 @@
     enable32Bit = true;
     package = pkgsUnstable.mesa;
     package32 = pkgsUnstable.pkgsi686Linux.mesa;
+    extraPackages = with pkgs; [
+      rocmPackages.clr
+      rocmPackages.clr.icd
+    ];
   };
 
   hardware.i2c.enable = true;
@@ -14,16 +18,6 @@
   hardware.cpu.amd.updateMicrocode = true;
 
   services.xserver.videoDrivers = [ "amdgpu" ];
-
-  /*
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-  */
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -34,10 +28,14 @@
     jack.enable = true;
   };
   
-  services.blueman.enable = true;
-
   services.udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5750", MODE="0666"
     KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+  '';
+
+  services.udev.extraHwdb = ''
+    evdev:input:b0003v*
+      KEYBOARD_KEY_70039=esc
+      KEYBOARD_KEY_70029=capslock
   '';
 }

@@ -3,25 +3,20 @@
 {
   home.packages = [
     # Browsers and Communication
+    pkgsUnstable.brave-origin            # Privacy-oriented browser for Desktop and Laptop computers (Origin variant)
     pkgs.vesktop                         # Discord with audio fix for linux 
     pkgs.telegram-desktop                # Desktop client for the Telegram messaging platform
     pkgs.rustdesk                        # Open-source remote desktop and screen sharing tool
 
     # Security
-    pkgs.keepassxc                       # Offline password manager
+    pkgs.proton-pass                     # Offline password manager
     pkgs.soteria                         # Polkit authentication agent written in GTK
-
-    # Software Development
-    pkgs.dbeaver-bin                     # Universal database management tool
-    pkgs.vscodium
-    pkgs.mise                            # Development environment and runtime manager
-    pkgs.nixd                            # Language server for Nix development
-    pkgs.nil                             # Alternative Nix language server with IDE support
 
     # System Status & Ricing
     pkgs.btop                            # Resource monitor with a modern terminal UI
     pkgs.cmatrix                         # Matrix-style terminal animation effect
     pkgs.cava                            # Audio visualizer for the terminal
+    pkgs.wayland-bongocat                # Delightful Wayland overlay that displays an animated bongo cat reacting to keyboard input
 
     # Wayland/Hyprland Tools
     pkgs.brightnessctl                   # Command-line brightness control utility
@@ -37,6 +32,8 @@
     pkgs.bottles                         # Wine environment manager for running Windows apps
     pkgs.mangohud                        # Performance overlay for games and Vulkan/OpenGL apps
 
+    pkgs.gnome-boxes                     # Simple GNOME 3 application to access remote or virtual systems
+
     # Media, Documents & Streaming
     pkgs.gimp                            # Advanced image editing and graphic design tool
     pkgs.upscayl                         # AI-powered image upscaling application
@@ -45,7 +42,9 @@
     pkgs.imv                             # Minimalist image viewer for Wayland and X11
     pkgs.onlyoffice-desktopeditors       # Complete open-source office productivity suite
     pkgs.xarchiver                       # Lightweight graphical archive manager
-    pkgs.thunar
+    pkgs.thunar                          # Xfce file manager
+    pkgs.rclone                          # Command line program to sync files and directories to and from major cloud storage
+    pkgs.restic                          # Backup program that is fast, efficient and secure
     pkgs.zathura                         # Minimalist keyboard-driven document viewer
     
     # Zathura Backends (Plugins)

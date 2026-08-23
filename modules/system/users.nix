@@ -11,6 +11,7 @@
       "i2c"
       "audio"
       "input"
+      "render"
     ];
     shell = pkgs.zsh;
     # change after first login
