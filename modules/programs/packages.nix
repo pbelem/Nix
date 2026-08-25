@@ -9,14 +9,14 @@
     pkgs.rustdesk                        # Open-source remote desktop and screen sharing tool
 
     # Security
-    pkgs.proton-pass                     # Offline password manager
+    pkgs.proton-pass                     # password manager
     pkgs.soteria                         # Polkit authentication agent written in GTK
+    pkgs.proton-vpn                      # Quick and open source VPN service
 
     # System Status & Ricing
     pkgs.btop                            # Resource monitor with a modern terminal UI
     pkgs.cmatrix                         # Matrix-style terminal animation effect
     pkgs.cava                            # Audio visualizer for the terminal
-    pkgs.wayland-bongocat                # Delightful Wayland overlay that displays an animated bongo cat reacting to keyboard input
 
     # Wayland/Hyprland Tools
     pkgs.brightnessctl                   # Command-line brightness control utility

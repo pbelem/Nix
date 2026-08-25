@@ -10,8 +10,6 @@
 
   environment.systemPackages = [
     pkgs.mangohud
-    pkgs.shadps4
-    pkgs.goverlay
   ];
 
   environment.sessionVariables = {

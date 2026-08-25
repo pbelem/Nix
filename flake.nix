@@ -7,6 +7,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     hyprland.url = "github:hyprwm/Hyprland";
     niri.url = "github:sodiboo/niri-flake";
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -18,22 +19,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixCats = {
-      url = "github:BirdeeHub/nixCats-nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
         nixpkgs.follows = "unstable";
         home-manager.follows = "home-manager";
       };
+    };
+
+    
+
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     wallpapers = {
@@ -51,8 +49,8 @@
     nix-flatpak,
     hyprland,
     niri,
+    nixvim,
     nvf,
-    nixCats,
     zen-browser,
     ...
   }@inputs:
@@ -83,11 +81,11 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
-            inherit inputs pkgsUnstable noctalia nixCats;
+            inherit inputs pkgsUnstable noctalia;
           };
           modules = [
             nvf.homeManagerModules.default
-            nixCats.homeModule
+            nixvim.homeModules.nixvim
             ./users/belem/home.nix
           ];
         };
