@@ -27,7 +27,6 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = [
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta
     pkgs.wget          # Command-line tool for downloading files from the web
     pkgs.curl          # Tool for transferring data using URLs and APIs
     pkgs.killall       # Utility to terminate processes by name

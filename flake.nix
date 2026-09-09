@@ -27,13 +27,6 @@
       };
     };
 
-    
-
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     wallpapers = {
       url = "github:krishna4a6av/Wallpapers";
       flake = false;
@@ -50,10 +43,9 @@
     hyprland,
     niri,
     nixvim,
-    nvf,
     zen-browser,
     ...
-  }@inputs:
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -84,7 +76,6 @@
             inherit inputs pkgsUnstable noctalia;
           };
           modules = [
-            nvf.homeManagerModules.default
             nixvim.homeModules.nixvim
             ./users/belem/home.nix
           ];

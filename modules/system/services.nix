@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgsUnstable, ... }:
 
 {
   
@@ -56,6 +56,11 @@
     autoPrune.enable = true;
   };
 
+  services.ollama = {
+    enable = true;
+    package = pkgsUnstable.ollama-rocm;
+  };
+
   services.flatpak = {
     enable = true;
     remotes = [{
@@ -64,6 +69,7 @@
     }];
     packages = [
       "com.github.tchx84.Flatseal"
+      "com.usebottles.bottles"
       "org.gnome.Boxes"
       "org.kde.kdenlive"
     ];

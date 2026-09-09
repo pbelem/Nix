@@ -4,6 +4,7 @@
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
+    shellWrapperName = "y";
     
     # Override to use 7zz-rar for RAR archive extraction support
     package = pkgs.yazi.override {

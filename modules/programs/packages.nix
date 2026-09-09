@@ -11,7 +11,6 @@
     # Security
     pkgs.proton-pass                     # password manager
     pkgs.soteria                         # Polkit authentication agent written in GTK
-    pkgs.proton-vpn                      # Quick and open source VPN service
 
     # System Status & Ricing
     pkgs.btop                            # Resource monitor with a modern terminal UI
@@ -29,7 +28,6 @@
     pkgs.lutris                          # Game management platform for Linux
     pkgs.prismlauncher                   # Custom Minecraft launcher with mod support
     pkgs.protonplus                      # Tool for managing Proton-GE and Wine-GE versions
-    pkgs.bottles                         # Wine environment manager for running Windows apps
     pkgs.mangohud                        # Performance overlay for games and Vulkan/OpenGL apps
 
     pkgs.gnome-boxes                     # Simple GNOME 3 application to access remote or virtual systems
@@ -37,6 +35,7 @@
     # Media, Documents & Streaming
     pkgs.gimp                            # Advanced image editing and graphic design tool
     pkgs.upscayl                         # AI-powered image upscaling application
+    pkgs.handbrake                       # Tool for converting video files and ripping DVDs
     pkgs.mpv                             # Lightweight and powerful media player
     pkgs.vlc                             # Versatile multimedia player supporting many formats
     pkgs.imv                             # Minimalist image viewer for Wayland and X11
