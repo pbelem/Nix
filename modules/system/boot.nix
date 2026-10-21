@@ -1,4 +1,4 @@
-{ config, pkgs, pkgsUnstable,  ... }:
+{ config, pkgs, pkgsUnstable, ... }:
 
 {
   boot.loader = {
@@ -9,7 +9,7 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages;
     kernelParams = [ "amdgpu.dc=1" ];
     kernelModules = [ "i2c-dev" "ddcci-backlight" ];
     extraModulePackages = with config.boot.kernelPackages; [ ddcci-driver ];

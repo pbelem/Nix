@@ -4,8 +4,8 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    package = pkgsUnstable.mesa;
-    package32 = pkgsUnstable.pkgsi686Linux.mesa;
+    # package = pkgsUnstable.mesa;
+    # package32 = pkgsUnstable.pkgsi686Linux.mesa;
     extraPackages = with pkgs; [
       rocmPackages.clr
       rocmPackages.clr.icd
@@ -28,8 +28,14 @@
     jack.enable = true;
   };
   
-  services.udev.extraRules = ''
+services.udev.extraRules = ''
+    # SayoDevice
     KERNEL=="hidraw*", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5750", MODE="0666"
+
+    # Akko Keyboard
+    KERNEL=="hidraw*", ATTRS{idVendor}=="3151", ATTRS{idProduct}=="5029", MODE="0666"
+
+    # I2C original
     KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
   '';
 

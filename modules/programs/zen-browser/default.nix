@@ -78,15 +78,18 @@
           };
 
           # Hiding unwanted default search engines
-          "Bing".metaData.hidden = true;
-          "DuckDuckGo".metaData.hidden = true;
-          "Wikipedia (en)".metaData.hidden = true;
-          "Wikipedia (pt-BR)".metaData.hidden = true;
+          "bing".metaData.hidden = true;
+          "ddg".metaData.hidden = true;
+          "wikipedia".metaData.hidden = true;
           "Perplexity".metaData.hidden = true;
         };
       };
 
       settings = {
+        # --- Zen Browser Mods ---
+        # Better Unloaded Tabs
+        "zen.view.use-theme.f7c71d9a-bce2-420f-ae44-a64bd92975ab" = true;
+
         # --- Search & Address Bar Suggestions (Disabled) ---
         "browser.search.suggest.enabled" = false;
         "browser.urlbar.suggest.history" = false;

@@ -16,9 +16,10 @@
       # Custom
       btw = "echo 'i use nixos, btw'";
       please = "sudo";
+      screenshot = "wl-paste >"; # "screenshot example.png" to save a screenshot
       # Legacy
       nrs = "sudo nixos-rebuild switch --flake /etc/nixos#Desktop-NixOS";  # -b backup
-      nrhm = "nix run home-manager/release-25.11 -- switch --flake /etc/nixos#belem"; # -b backup
+      nrhm = "nix run home-manager/release-26.05 -- switch --flake /etc/nixos#belem"; # -b backup
       # System
       nel = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       ned = "sudo nix-env \
@@ -27,7 +28,7 @@
       # Flake 
       nfu = "nix flake update /etc/nixos"; # updates flake.lock, but it doesn't rebuild anything
       # Home manager
-      hml = "nix run home-manager generations"; # /activate
+      hml = "nix run home-manager generations"; # "/nix/store/p7bh5rbfvjf9x5msz8jr1s712lmj67vn-home-manager-generation/activate" to activate
       hmd = "nix run home-manager remove-generations"; # + generation number as an argument
       # Nix Helper
       nhos = "nh os boot";

@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }:
+{ pkgs, pkgsUnstable, ...}:
 
 {
   home.packages = [
@@ -16,6 +16,7 @@
     pkgs.btop                            # Resource monitor with a modern terminal UI
     pkgs.cmatrix                         # Matrix-style terminal animation effect
     pkgs.cava                            # Audio visualizer for the terminal
+    pkgs.mpvpaper                        # Video wallpaper program for wlroots based wayland compositors
 
     # Wayland/Hyprland Tools
     pkgs.brightnessctl                   # Command-line brightness control utility
@@ -23,13 +24,7 @@
     pkgs.wlsunset                        # Adjusts screen color temperature based on time of day
     pkgs.hyprshot                        # Screenshot utility designed for Hyprland
 
-    # Gaming & Performance
-    pkgs.heroic                          # Launcher for Epic Games, GOG, and Amazon games
-    pkgs.lutris                          # Game management platform for Linux
-    pkgs.prismlauncher                   # Custom Minecraft launcher with mod support
-    pkgs.protonplus                      # Tool for managing Proton-GE and Wine-GE versions
-    pkgs.mangohud                        # Performance overlay for games and Vulkan/OpenGL apps
-
+    # Virtual Machine
     pkgs.gnome-boxes                     # Simple GNOME 3 application to access remote or virtual systems
 
     # Media, Documents & Streaming
@@ -41,6 +36,7 @@
     pkgs.imv                             # Minimalist image viewer for Wayland and X11
     pkgs.onlyoffice-desktopeditors       # Complete open-source office productivity suite
     pkgs.xarchiver                       # Lightweight graphical archive manager
+    pkgs.localsend                       # Open source cross-platform alternative to AirDrop
     pkgs.thunar                          # Xfce file manager
     pkgs.rclone                          # Command line program to sync files and directories to and from major cloud storage
     pkgs.restic                          # Backup program that is fast, efficient and secure

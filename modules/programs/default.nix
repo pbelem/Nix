@@ -1,8 +1,9 @@
 {
   imports = [
     ./fastfetch.nix
-    ./obs-studio.nix
+    ./obs
     ./packages.nix
     ./zen-browser
+    ./gaming.nix
   ];
 }

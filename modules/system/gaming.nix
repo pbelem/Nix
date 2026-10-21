@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgsUnstable, ... }:
 
 {
   programs.steam = {
@@ -10,6 +10,7 @@
 
   environment.systemPackages = [
     pkgs.mangohud
+    # pkgsUnstable.osu-lazer-bin
   ];
 
   environment.sessionVariables = {

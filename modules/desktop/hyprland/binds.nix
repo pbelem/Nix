@@ -1,102 +1,100 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
+  hl = import ./lib.nix { inherit lib; };
+  inherit (hl) mkBind exec close toggleFloat fullscreen focusDir focusWs moveToWs
+    dragWindow resizeWindow hyprctlDispatch;
+
   mod = "SUPER";
-  ipc = "noctalia-shell ipc call";
+  ipc = "noctalia msg";
 
   toggle-minimize = pkgs.writeShellScript "toggle-minimize" ''
     active_ws=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.workspace.name')
-    
+
     if [ "$active_ws" = "special:minimized" ]; then
         ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspace +0
     else
         ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent special:minimized
     fi
   '';
-in 
+in
 {
   wayland.windowManager.hyprland.settings = {
     bind = [
       # --- Applications ---
-      "${mod}, RETURN, exec, uwsm app -- kitty"
-      "${mod}, DELETE, killactive"
-      "${mod}, E, exec, uwsm app -- kitty -e yazi"
-      "${mod}, B, exec, uwsm app -- zen-beta"
+      (mkBind { key = "${mod} + RETURN"; action = exec "uwsm app -- kitty"; })
+      (mkBind { key = "${mod} + DELETE"; action = close; })
+      (mkBind { key = "${mod} + E"; action = exec "uwsm app -- kitty -e yazi"; })
+      (mkBind { key = "${mod} + B"; action = exec "uwsm app -- zen-beta"; })
 
       # --- Windows & Workspaces ---
-      "${mod}, T, togglefloating"
-      "${mod}, Home, fullscreen, 0"
-      
+      (mkBind { key = "${mod} + T"; action = toggleFloat; })
+      (mkBind { key = "${mod} + Home"; action = fullscreen "fullscreen"; })
+
       # Minimize to special workspace
-      "${mod}, End, exec, ${toggle-minimize}"
-      "${mod} ALT, End, togglespecialworkspace, minimized"
+      (mkBind { key = "${mod} + End"; action = exec "${toggle-minimize}"; })
+      # togglespecialworkspace: native lua signature unconfirmed, bridged via hyprctl
+      (mkBind { key = "${mod} + ALT + End"; action = hyprctlDispatch "togglespecialworkspace minimized"; })
 
       # Move focus
-      "${mod}, left, movefocus, l"
-      "${mod}, right, movefocus, r"
-      "${mod}, up, movefocus, u"
-      "${mod}, down, movefocus, d"
-      "${mod}, l, movefocus, l"
-      "${mod}, h, movefocus, r"
-      "${mod}, k, movefocus, u"
-      "${mod}, j, movefocus, d"
+      (mkBind { key = "${mod} + left"; action = focusDir "left"; })
+      (mkBind { key = "${mod} + right"; action = focusDir "right"; })
+      (mkBind { key = "${mod} + up"; action = focusDir "up"; })
+      (mkBind { key = "${mod} + down"; action = focusDir "down"; })
 
-      # Workspace Navigation
-      "${mod}, Page_Down, workspace, +1"
-      "${mod}, Page_Up, workspace, -1"
-      "${mod} ALT, Page_Down, movetoworkspace, +1"
-      "${mod} ALT, Page_Up, movetoworkspace, -1"
+      # Workspace navigation (relative)
+      (mkBind { key = "${mod} + Page_Down"; action = focusWs "+1"; })
+      (mkBind { key = "${mod} + Page_Up"; action = focusWs "-1"; })
+      (mkBind { key = "${mod} + ALT + Page_Down"; action = moveToWs "+1"; })
+      (mkBind { key = "${mod} + ALT + Page_Up"; action = moveToWs "-1"; })
 
       # Move the active window to a specific workspace (1-10)
-      "${mod} SHIFT, 1, movetoworkspace, 1"
-      "${mod} SHIFT, 2, movetoworkspace, 2"
-      "${mod} SHIFT, 3, movetoworkspace, 3"
-      "${mod} SHIFT, 4, movetoworkspace, 4"
-      "${mod} SHIFT, 5, movetoworkspace, 5"
-      "${mod} SHIFT, 6, movetoworkspace, 6"
-      "${mod} SHIFT, 7, movetoworkspace, 7"
-      "${mod} SHIFT, 8, movetoworkspace, 8"
-      "${mod} SHIFT, 9, movetoworkspace, 9"
-      "${mod} SHIFT, 0, movetoworkspace, 10"
+      (mkBind { key = "${mod} + SHIFT + 1"; action = moveToWs "1"; })
+      (mkBind { key = "${mod} + SHIFT + 2"; action = moveToWs "2"; })
+      (mkBind { key = "${mod} + SHIFT + 3"; action = moveToWs "3"; })
+      (mkBind { key = "${mod} + SHIFT + 4"; action = moveToWs "4"; })
+      (mkBind { key = "${mod} + SHIFT + 5"; action = moveToWs "5"; })
+      (mkBind { key = "${mod} + SHIFT + 6"; action = moveToWs "6"; })
+      (mkBind { key = "${mod} + SHIFT + 7"; action = moveToWs "7"; })
+      (mkBind { key = "${mod} + SHIFT + 8"; action = moveToWs "8"; })
+      (mkBind { key = "${mod} + SHIFT + 9"; action = moveToWs "9"; })
+      (mkBind { key = "${mod} + SHIFT + 0"; action = moveToWs "10"; })
 
-      # Absolute Workspaces
-      "${mod}, 1, workspace, 1"
-      "${mod}, 2, workspace, 2"
-      "${mod}, 3, workspace, 3"
-      "${mod}, 4, workspace, 4"
-      "${mod}, 5, workspace, 5"
-      "${mod}, 6, workspace, 6"
-      "${mod}, 7, workspace, 7"
-      "${mod}, 8, workspace, 8"
-      "${mod}, 9, workspace, 9"
-      "${mod}, 0, workspace, 10"
+      # Absolute workspaces
+      (mkBind { key = "${mod} + 1"; action = focusWs "1"; })
+      (mkBind { key = "${mod} + 2"; action = focusWs "2"; })
+      (mkBind { key = "${mod} + 3"; action = focusWs "3"; })
+      (mkBind { key = "${mod} + 4"; action = focusWs "4"; })
+      (mkBind { key = "${mod} + 5"; action = focusWs "5"; })
+      (mkBind { key = "${mod} + 6"; action = focusWs "6"; })
+      (mkBind { key = "${mod} + 7"; action = focusWs "7"; })
+      (mkBind { key = "${mod} + 8"; action = focusWs "8"; })
+      (mkBind { key = "${mod} + 9"; action = focusWs "9"; })
+      (mkBind { key = "${mod} + 0"; action = focusWs "10"; })
 
       # --- Noctalia Shell (IPC Calls) ---
-      "${mod}, SPACE, exec, ${ipc} launcher toggle"
-      "${mod}, I, exec, ${ipc} settings toggle"
-      "${mod}, period, exec, ${ipc} launcher emoji"
-      /* "${mod}, L, exec, ${ipc} sessionMenu toggle" */
-      "${mod}, W, exec, ${ipc} wallpaper random"
-      "${mod}, V, exec, ${ipc} launcher clipboard"
+      (mkBind { key = "${mod} + SPACE"; action = exec "${ipc} panel-toggle launcher"; })
+      (mkBind { key = "${mod} + I"; action = exec "${ipc} settings-toggle"; })
+      (mkBind { key = "${mod} + period"; action = exec "${ipc} panel-toggle launcher /emo"; })
+      # (mkBind { key = "${mod} + L"; action = exec "${ipc} panel-toggle session"; })
+      (mkBind { key = "${mod} + W"; action = exec "${ipc} wallpaper-random"; })
+      (mkBind { key = "${mod} + V"; action = exec "${ipc} panel-toggle clipboard"; })
 
       # --- Others ---
-      ", Print, exec, hyprshot -m region --clipboard-only"
-    ];
+      (mkBind { key = "Print"; action = exec "hyprshot -m region --clipboard-only"; })
 
-    bindel = [
-      "${mod}, F12, exec, ${ipc} brightness increase"
-      "${mod}, F11, exec, ${ipc} brightness decrease"
-      "${mod}, F10, exec, ${ipc} volume increase"
-      "${mod}, F9, exec, ${ipc} volume decrease"
-    ];
+      # --- Multimedia (formerly bindel: repeat + works when locked) ---
+      (mkBind { key = "${mod} + F12"; action = exec "${ipc} brightness-up"; flags = { repeating = true; locked = true; }; })
+      (mkBind { key = "${mod} + F11"; action = exec "${ipc} brightness-down"; flags = { repeating = true; locked = true; }; })
+      (mkBind { key = "${mod} + F10"; action = exec "${ipc} volume-up"; flags = { repeating = true; locked = true; }; })
+      (mkBind { key = "${mod} + F9"; action = exec "${ipc} volume-down"; flags = { repeating = true; locked = true; }; })
 
-    bindl = [
-      "${mod}, INSERT, exec, ${ipc} volume muteInput"
-    ];
+      # --- formerly bindl: works when locked, no repeat ---
+      (mkBind { key = "${mod} + INSERT"; action = exec "${ipc} mic-mute"; flags = { locked = true; }; })
 
-    bindm = [
-      "${mod}, mouse:272, movewindow"
-      "${mod}, mouse:273, resizewindow"
+      # --- formerly bindm: mouse move/resize ---
+      (mkBind { key = "${mod} + mouse:272"; action = dragWindow; })
+      (mkBind { key = "${mod} + mouse:273"; action = resizeWindow; })
     ];
   };
 }

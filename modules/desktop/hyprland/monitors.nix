@@ -2,14 +2,16 @@
 
 {
   wayland.windowManager.hyprland.settings = {
+    # hl.monitor({ output, mode, position, scale, transform })
     monitor = [
-      "DP-1, 2560x1440@180.00, 1080x0, 1"
-      "DP-2, 1920x1080@240.00, 0x0, 1, transform, 3"
+      { output = "DP-1"; mode = "2560x1440@180.00"; position = "1080x0"; scale = 1; }
+      { output = "DP-2"; mode = "1920x1080@240.00"; position = "0x0"; scale = 1; transform = 1; }
     ];
-    workspace = [
-      "1, monitor:DP-2, default:true"
-      "2, monitor:DP-1"
+
+    # hl.workspace_rule({ workspace, monitor, default })
+    workspace_rule = [
+      { workspace = "1"; monitor = "DP-2"; default = true; }
+      { workspace = "2"; monitor = "DP-1"; }
     ];
   };
 }
-

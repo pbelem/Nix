@@ -11,6 +11,7 @@
     ../../modules/system/desktop.nix
     ../../modules/system/gaming.nix
     ../../modules/system/users.nix
+    ../../modules/system/bluetooth.nix
   ];
 
   system.stateVersion = "25.11";

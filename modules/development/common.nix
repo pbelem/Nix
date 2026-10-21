@@ -31,5 +31,12 @@
     pkgs.nixd           # Language server for Nix development
     pkgs.nil            # Alternative Nix language server with IDE support
     pkgs.postman
+
+    pkgs.opencode       # AI coding agent built for the terminal
+    pkgs.opencode-desktop # AI coding agent desktop client
+    pkgs.goose-cli      # Open-source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM
+    pkgs.aider-chat     # AI pair programming in your terminal
+    pkgs.antigravity    # Agentic development platform, evolving the IDE into the agent-first era
   ];
+
 }
