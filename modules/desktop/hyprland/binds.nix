@@ -79,9 +79,7 @@ in
       # (mkBind { key = "${mod} + L"; action = exec "${ipc} panel-toggle session"; })
       (mkBind { key = "${mod} + W"; action = exec "${ipc} wallpaper-random"; })
       (mkBind { key = "${mod} + V"; action = exec "${ipc} panel-toggle clipboard"; })
-
-      # --- Others ---
-      (mkBind { key = "Print"; action = exec "hyprshot -m region --clipboard-only"; })
+      (mkBind { key = "Print"; action = exec "${ipc} screenshot-annotate"; })
 
       # --- Multimedia (formerly bindel: repeat + works when locked) ---
       (mkBind { key = "${mod} + F12"; action = exec "${ipc} brightness-up"; flags = { repeating = true; locked = true; }; })

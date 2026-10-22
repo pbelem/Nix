@@ -33,6 +33,7 @@
       animations.enabled = true;
     };
 
+    # hl.curve("name", { type = "bezier", points = { {x0,y0}, {x1,y1} } })
     curve = map (c: {
       _args = [ c.name { type = "bezier"; points = c.points; } ];
     }) [
@@ -41,6 +42,7 @@
       { name = "menu_accel"; points = [ [ 0.38 0.04 ] [ 1.0 0.07 ] ]; }
     ];
 
+    # hl.animation({ leaf = ..., enabled = ..., speed = ..., bezier = ..., style = ... })
     animation = [
       { leaf = "windows";    enabled = true; speed = 3;  bezier = "md3_decel";  style = "popin 60%"; }
       { leaf = "border";     enabled = true; speed = 10; bezier = "default"; }

@@ -33,6 +33,7 @@
     pkgs.handbrake                       # Tool for converting video files and ripping DVDs
     pkgs.mpv                             # Lightweight and powerful media player
     pkgs.vlc                             # Versatile multimedia player supporting many formats
+    pkgs.kdePackages.kdenlive            # Free and open source video editor, based on MLT Framework and KDE Frameworks
     pkgs.imv                             # Minimalist image viewer for Wayland and X11
     pkgs.onlyoffice-desktopeditors       # Complete open-source office productivity suite
     pkgs.xarchiver                       # Lightweight graphical archive manager

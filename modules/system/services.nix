@@ -71,7 +71,6 @@
       "com.github.tchx84.Flatseal"
       "com.usebottles.bottles"
       "org.gnome.Boxes"
-      "org.kde.kdenlive"
     ];
     uninstallUnmanaged = true;
   };
